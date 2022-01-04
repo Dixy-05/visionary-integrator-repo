@@ -1,6 +1,6 @@
 <template lang='pug'>
-  div
-    h1 hello
+  div(class="mt-4")
+    h1.title Visionary or Integrator ?
 
 </template>
 
@@ -14,3 +14,9 @@ export default {
   // },
 }
 </script>
+<style  scoped>
+.title{
+  font-family: Cochin, Georgia, Times, 'Times New Roman', serif;
+  color:blueviolet
+}
+</style>

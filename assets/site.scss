@@ -1,0 +1,63 @@
+// Import Bulma's core
+@import "~bulma/sass/utilities/_all.sass";
+// @import '~bulma-slider/src/sass/index.sass';
+
+$family-sans-serif: 'Proxima Nova', "proxima-nova";
+$family-primary: $family-sans-serif;
+
+// Set your colors
+$dark: #2a2c33;
+$dark-invert: findColorInvert($dark);
+$primary: #712a96;
+$primary-invert: findColorInvert($primary);
+$link: #40a5cc;
+$link-invert: findColorInvert($link);
+
+$light: #bce6ed;
+$light-invert: findColorInvert($light);
+$info: #397e99;
+$info-invert: findColorInvert($info);
+
+$danger: #d72b3f;
+$danger-invert: findColorInvert($danger);
+$warning: #ffa233;
+$warning-invert: findColorInvert($warning);
+$success: #73e0c3;
+$success-invert: findColorInvert($success);
+
+$link-dark: #254e5e;
+$link-dark-invert: findColorInvert($link-dark);
+
+$success-dark: #509b86;
+$success-dark-invert: findColorInvert($success-dark);
+
+$base: hsl(171, 100%, 41%);
+$base-invert: findColorInvert($base);
+
+$text: $dark;
+
+$footer-background-color: $light;
+
+$colors: mergeColorMaps($colors, (
+  "base":($base,$base-invert),
+  "white": ($white, $black),
+  "black": ($black, $white),
+  "light": ($light, $light-invert),
+  "dark": ($dark, $dark-invert),
+  "primary": ($primary, $primary-invert),
+  "info": ($info, $info-invert),
+  "link": ($link, $link-invert),
+  "success": ($success, $success-invert),
+  "warning": ($warning, $warning-invert),
+  "danger": ($danger, $danger-invert),
+  "link-dark": ($link-dark, $link-dark-invert),
+  "success-dark": ($success-dark, $success-dark-invert)
+));
+
+$steps-completed-color: $grey-lighter;
+$weight-bold: 800;
+// Import Bulma and Buefy styles
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
+// @import './bulma-override.sass';
+// @import "~bulma-steps-component/bulma-steps.sass";

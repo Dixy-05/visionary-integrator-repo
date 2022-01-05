@@ -18,21 +18,21 @@
               b.beforeStart BEFORE WE START, 
               |PLEASE FILL OUT FORM AND REGISTER
             section.form(v-if="showForm")
-              form(@submit.prevent="click")
+              form
                 h5 
                   b-icon(icon="account-edit")
                   |Register Form
                 ValidationObserver(ref="observer" v-slot="{invalid}")
-                  ValidationProvider.field(rules="required" name="First Name" v-slot="{errors,valid}")
+                  ValidationProvider(rules="required" name="First Name" v-slot="{errors,valid}")
                     b-field(label="First Name" :label-position="firstName!=''?'on-border':'inside'" :type="{'is-danger':errors[0],'is-success':valid}" :message="errors") 
                       b-input(class="mb-3" placeholder="First Name" v-model="firstName" type='string' ) 
-                  ValidationProvider.field(rules="required" name="Last Name" v-slot="{errors,valid}")
+                  ValidationProvider(rules="required" name="Last Name" v-slot="{errors,valid}")
                     b-field(label="Last Name" :label-position="lastName!=''?'on-border':'inside'" :type="{'is-danger':errors[0],'is-success':valid}" :message="errors")
                       b-input(class="mb-3" placeholder="Last Name" v-model="lastName" type='string')
-                  ValidationProvider.field(rules="required|email" name="Last Name" v-slot="{errors,valid}")
+                  ValidationProvider(rules="required|email" name="Last Name" v-slot="{errors,valid}")
                     b-field(label="Email" :label-position="email!=''?'on-border':'inside'" :type="{'is-danger':errors[0],'is-success':valid}" :message="errors" )
                       b-input(class="mb-3" placeholder="Email" v-model="email" type='email' )
-                b-button(class="is-info" @click="register" :disabled="invalid") Register
+                  b-button(class="is-info" @click="register" :disabled="invalid") Register
         .column
           .tile
             .tile(class="is-parent")
@@ -40,13 +40,7 @@
                 p.title It will only take you a few minutes !!
                 b-button.fbutton(type="is-primary mr-3" expanded @click="checkForm" ) Visionary Assessment
                 h3.or or
-                b-button.fbutton(type="is-AppGreen ml-3" expanded @click="checkForm") Integrator Assessment
-
-      
-    //- footer.card-footer(class="mb-3")
-    //-   b-button.fbutton(type="is-primary mr-3" expanded ) Visionary Assessment
-    //-   h3.or or
-    //-   b-button.fbutton(type="is-AppGreen ml-3" expanded) Integrator Assessment
+                b-button.fbutton(type="is-AppGreen ml-3" expanded @click="checkForm" ) Integrator Assessment
 </template>
 
 <script>
@@ -59,7 +53,8 @@ export default {
       firstName:'',
       lastName:'',
       email:'',
-      showForm:true
+      showForm:true,
+      registered:false
     }
   },
   methods:{

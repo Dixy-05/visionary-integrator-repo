@@ -10,10 +10,9 @@
               .tile(class="tile is-parent")
                 article(class="tile is-child notification is-info")
                   p.title Success, now Lets start !!
-                  p.subtitle You can choose either assessment to begin 
-                  p.content 
+                  p.subtitle 
                     b-icon(icon="hand-pointing-right")
-                    |  Remember you must complete both assessments to have a result 
+                    |You can choose either assessment to begin 
                   
             p(v-if="showForm")
               b.beforeStart BEFORE WE START, 

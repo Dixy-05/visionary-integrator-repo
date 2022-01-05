@@ -34,12 +34,16 @@ $success-dark-invert: findColorInvert($success-dark);
 $base: hsl(171, 100%, 41%);
 $base-invert: findColorInvert($base);
 
+$AppGreen: hsl(172, 99%, 30%);
+$AppGreen-invert: findColorInvert($AppGreen);
+
 $text: $dark;
 
 $footer-background-color: $light;
 
 $colors: mergeColorMaps($colors, (
   "base":($base,$base-invert),
+  "AppGreen":($AppGreen,$AppGreen-invert),
   "white": ($white, $black),
   "black": ($black, $white),
   "light": ($light, $light-invert),
@@ -61,8 +65,8 @@ $weight-bold: 800;
 @import "~buefy/src/scss/buefy";
 // @import './bulma-override.sass';
 // @import "~bulma-steps-component/bulma-steps.sass";
-.title{
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  color:#712a96;
-  text-align: center;
+.mainTitle{
+  font-family: Cochin, Georgia, Times, 'Times New Roman', serif;
+  color:rgb(127, 40, 209);
+  font-size: 3em;
 }

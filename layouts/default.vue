@@ -3,13 +3,14 @@
     nav.navbar.header.has-shadow.is-base(role='navigation' aria-label='main navigation')
       .navbar-brand
         a.navbar-item(href='/')
-          h2 assessment
-        .navbar-burger
-          span
-            span
-              span
+          b-icon(icon="home")
     .container
-      nuxt
+        .card
+          header.card-header
+            p.card-header-title
+              h1.mainTitle(class="mr-6") Visionary or Integrator ?
+
+    nuxt
 </template>
 
 <script>

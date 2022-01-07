@@ -6,7 +6,7 @@
       hr.divider(type="is-danger")
       .content
         section
-            .block
+            .block(class="is-justify-content-center is-flex")
                 b-radio(v-model='radio' uncheck native-value='1' @input='getAnswer(radio,cardNumber)')
                     | 1
                 b-radio(v-model='radio'  native-value='2' @input='getAnswer(radio,cardNumber)')

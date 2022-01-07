@@ -3,8 +3,11 @@
         div.container(class="mt-3")
             .topDiv
                 .column
-                    .column
+                    .columns
+                      .column(class="is-two-thirds")
                         h1.assessmentTitle VISIONARY INDICATOR ASSESSMENT
+                      .column(class="is-flex is-align-items-center is-justify-content-end")
+                         b-tag.infoTag(type="is-info" size="is-medium") 1 rarely describes you and 5 describes you
                     .columns
                         .column
                             card(:key="currentPage" :getAnswer="getAnswer" cardNumber="one" :statement="statements.data[0].text" )
@@ -16,7 +19,7 @@
                         .column
                             card(:key="currentPage" :getAnswer="getAnswer" cardNumber="four" :statement="statements.data[3].text")
                     .column(class="is-flex is-justify-content-end")
-                        nuxt-link(:to="{path:`/visionary`,query:{page:currentPage}}")
+                        nuxt-link(:to="currentPage!==6?{path:`/visionary`,query:{page:currentPage}}:{path:'/integrator'}")
                             b-button(type='is-primary' label="Next Page"  icon-right='chevron-right' :disabled="notCompleted" @click="sendData" )
                     //- span {{statements}}
                     span {{stateOne}}
@@ -25,6 +28,7 @@
                     span {{stateFour}}
                     span {{stateFive}}
                     span {{currentPage}}
+                    span local current: {{current}}
 
 </template>
 <script>
@@ -45,13 +49,16 @@ export default {
                 four:''
             },
             notCompleted:true,
+            current:1,
         }
     },
       async fetch({ store, error, route }) {
+      store.dispatch('visionary/sendCurrentPage',1)
     try {
       await store.dispatch('visionary/fetchVisionaryStatements', {
         perPage: 4,
-        page: store.state.visionary.currentPage,
+        page: 1
+        // page: store.state.visionary.currentPage,
       })
 
     } catch {
@@ -83,6 +90,7 @@ export default {
         },
 
       sendData(){
+        this.current++
           this.$store.dispatch('visionary/sendCurrentPage',this.currentPage+1)
             const cardsArr=Object.values(this.cards);
             const arr=['one','two','three','four','five'];
@@ -91,18 +99,27 @@ export default {
                  this.$store.dispatch('visionary/sendNumber',{number:num,stateProp:arr[i]})
                 )
             }
-            this.$nuxt.refresh()
-                // try {
-                //     await this.$store.dispatch('visionary/fetchVisionaryStatements', {
-                //         perPage: 4,
-                //         page: this.currentPage,
-                //     })
-                //     } catch(error) {
-                //         return error
-                //     }
-        }
-    }
+            // clear cards answers
+           for(let i=0;i<4;i++){
+             this.$data.cards[arr[i]]=''
+           }
+           this.notCompleted=true;
+           this.nextPage()
+             // call fetch()
+            // this.$nuxt.refresh()
+        },
+        async nextPage(){
+          try {
+            await this.$store.dispatch('visionary/fetchVisionaryStatements', {
+              perPage: 4,
+              page: this.current
+            })
 
+          } catch(error) {
+          return error
+              }
+          }
+    }
 }
 </script>
 <style  scoped>
@@ -120,6 +137,10 @@ export default {
           margin-top:1.5em;
     font-size: 1.5em;
   text-align: center;
+  }
+  .infoTag{
+    font-family: 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color:red;
   }
 }
 </style>

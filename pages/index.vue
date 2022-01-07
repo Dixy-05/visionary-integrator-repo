@@ -38,9 +38,11 @@
             .tile(class="is-parent")
               article(class="tile is-child notification is-dark is-light")
                 p.title It will only take you a few minutes !!
-                b-button.fbutton(type="is-primary mr-3" expanded @click="checkForm" ) Visionary Assessment
+                nuxt-link(:to="registered?'/visionary':'/'" )
+                  b-button.fbutton(type="is-primary  mr-3" expanded @click="checkForm" ) Visionary Assessment
                 h3.or or
-                b-button.fbutton(type="is-AppGreen ml-3" expanded @click="checkForm" ) Integrator Assessment
+                nuxt-link(:to="registered?'/integrator':'/'")
+                  b-button.fbutton(type="is-AppGreen  ml-3" expanded @click="checkForm" ) Integrator Assessment
 </template>
 
 <script>
@@ -59,17 +61,11 @@ export default {
   },
   methods:{
     checkForm(){
-      return(this.firstName!=="" && this.lastName!=="" && this.email!=="")? (this.success()):(this.fail())
+      if(!this.registered){
+        this.notRegistered()
+      }
     },
-success() {
-  this.$buefy.toast.open({
-    message: ' Yay!!All good',
-    type: 'is-warning',
-    duration: 5000,
-    position: 'is-bottom',
-    })
-    },
-fail() {
+notRegistered() {
   this.$buefy.toast.open({
     message: 'Please Fill out Register Form and Register, to start assessment',
     type: 'is-danger',
@@ -79,7 +75,7 @@ fail() {
     },
     register(){
       this.showForm=false
-
+      this.registered=true
     }
   }
 }

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "jserver": "json-server --watch db.json --port 3005 --delay 1000",
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
@@ -13,11 +14,13 @@
     "lintfix": "prettier --write --list-different . && npm run lint:js -- --fix"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
     "bulma": "^0.9.3",
     "bulma-slider": "^2.0.4",
     "bulma-steps": "^2.2.1",
     "bulma-steps-component": "^0.5.3",
     "core-js": "^3.19.3",
+    "json-server": "^0.17.0",
     "nuxt": "^2.15.8",
     "nuxt-buefy": "^0.4.13",
     "vee-validate": "^3.4.14",

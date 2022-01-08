@@ -5,6 +5,7 @@ export default () => ({
    three:[],
    four:[],
    five:[],
-   visionaryStatements:[],
-   currentPage:1
+   statements:[],
+   currentPage:1,
+   isLoading:false
   })

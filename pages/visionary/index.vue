@@ -10,28 +10,23 @@
                          b-tag.infoTag(type="is-info" size="is-medium") 1 rarely describes you and 5 describes you
                     .columns
                         .column
-                            card(:key="currentPage" :getAnswer="getAnswer" cardNumber="one" :statement="statements.data[0].text" )
+                            card(:key="currentPage" :getAnswer="getAnswer" cardNumber="one" :statement="statements.data[0].text" :loading="loading")
                         .column
-                            card(:key="currentPage" :getAnswer="getAnswer" cardNumber="two" :statement="statements.data[1].text")
+                            card(:key="currentPage" :getAnswer="getAnswer" cardNumber="two" :statement="statements.data[1].text" :loading="loading")
                     .columns
                         .column
-                            card(:key="currentPage" :getAnswer="getAnswer" cardNumber="three" :statement="statements.data[2].text")
+                            card(:key="currentPage" :getAnswer="getAnswer" cardNumber="three" :statement="statements.data[2].text" :loading="loading")
                         .column
-                            card(:key="currentPage" :getAnswer="getAnswer" cardNumber="four" :statement="statements.data[3].text")
+                            card(:key="currentPage" :getAnswer="getAnswer" cardNumber="four" :statement="statements.data[3].text" :loading="loading")
                     .column(class="is-flex is-justify-content-end")
                         nuxt-link(:to="currentPage!==6?{path:`/visionary`,query:{page:currentPage}}:{path:'/integrator'}")
-                            b-button(type='is-primary' label="Next Page"  icon-right='chevron-right' :disabled="notCompleted" @click="sendData" )
-                    //- span {{statements}}
-                    span {{stateOne}}
-                    span {{stateTwo}}
-                    span {{stateThree}}
-                    span {{stateFour}}
-                    span {{stateFive}}
-                    span {{currentPage}}
-                    span local current: {{current}}
+                            b-button(type='is-primary' label="Next Page"  icon-right='chevron-right'  @click="sendData" )
+                    span {{statements.data[0].text}}
+                    
 
 </template>
 <script>
+// :statement="statements.data[0].text"
 import { mapState } from 'vuex'
 import Card from '@/components/Card.vue'
 export default {
@@ -43,24 +38,23 @@ export default {
     data(){
         return{
             cards:{
-                one:'',
-                two:'',
-                three:'',
-                four:''
+                one:3,
+                two:3,
+                three:3,
+                four:3
             },
-            notCompleted:true,
+            // notCompleted:true,
             current:1,
         }
     },
-      async fetch({ store, error, route }) {
-      store.dispatch('visionary/sendCurrentPage',1)
+     async fetch({ store, error }) {
+      store.dispatch('visionary/sendCurrentPage',1);
     try {
-      await store.dispatch('visionary/fetchVisionaryStatements', {
+      await store.dispatch('visionary/fetchStatements', {
         perPage: 4,
         page: 1
-        // page: store.state.visionary.currentPage,
       })
-
+      console.log(store.state.visionary.isLoading)
     } catch {
       error({
         statusCode: 503,
@@ -75,8 +69,9 @@ export default {
     stateThree: (state) => state.visionary.three,
     stateFour: (state) => state.visionary.four,
     stateFive: (state) => state.visionary.five,
-    statements:(state)=>state.visionary.visionaryStatements,
+    statements:(state)=> state.visionary.statements,
     currentPage: (state) => state.visionary.currentPage,
+    loading: (state) => state.visionary.isLoading,
   }),
     methods:{
         getAnswer(number,cardNumber){
@@ -102,20 +97,20 @@ export default {
             }
             // clear cards answers
            for(let i=0;i<4;i++){
-             this.$data.cards[arr[i]]=''
+             this.$data.cards[arr[i]]=3
            }
            this.notCompleted=true;
            this.nextPage()
              // call fetch()
             // this.$nuxt.refresh()
         },
-        async nextPage(){
+      async nextPage(){
+        this.$store.dispatch('visionary/isLoading',true)
           try {
-            await this.$store.dispatch('visionary/fetchVisionaryStatements', {
+             await this.$store.dispatch('visionary/fetchStatements', {
               perPage: 4,
               page: this.current
             })
-
           } catch(error) {
           return error
               }

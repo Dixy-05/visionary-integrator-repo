@@ -2,7 +2,9 @@
   div
     .main
       .header
-        span {{statement}}
+        template(v-if="!loading")
+          span {{statement}} {{loading}}
+        b-skeleton(:active="loading" :count="2")
       hr.divider(type="is-danger")
       .content
         section(class="pl-5 pr-5")
@@ -10,7 +12,7 @@
             span Not related
             span Very related
           b-field
-            b-slider(size='is-medium' :min='1' :max='5' v-model='number' @input='getAnswer(number,cardNumber)')
+            b-slider(size='is-medium' :min='1' :max='5' v-model='number'  @input='getAnswer(number,cardNumber)')
               template(v-for='val in [1,2,3,4,5]' )
                 b-slider-tick(:value='val' :key='val') {{ val }}
 
@@ -22,13 +24,14 @@ export default {
   name: 'statementsCard',
       data(){
         return{
-           number:1
+           number:3
         }
     },
   props: {
   cardNumber:String,
   getAnswer:Function,
-  statement:String
+  statement:String,
+  loading:Boolean
   },
 }
 </script>

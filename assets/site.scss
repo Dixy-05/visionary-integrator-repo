@@ -37,6 +37,8 @@ $base-invert: findColorInvert($base);
 $AppGreen: hsl(172, 99%, 30%);
 $AppGreen-invert: findColorInvert($AppGreen);
 
+$white:white;
+
 $text: $dark;
 
 $footer-background-color: $light;
@@ -57,7 +59,6 @@ $colors: mergeColorMaps($colors, (
   "link-dark": ($link-dark, $link-dark-invert),
   "success-dark": ($success-dark, $success-dark-invert)
 ));
-
 $steps-completed-color: $grey-lighter;
 $weight-bold: 800;
 // Import Bulma and Buefy styles

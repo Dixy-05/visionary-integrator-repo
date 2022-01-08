@@ -5,21 +5,15 @@
         span {{statement}}
       hr.divider(type="is-danger")
       .content
-        section
-            .block(class="is-justify-content-center is-flex")
-                b-radio(v-model='radio' uncheck native-value='1' @input='getAnswer(radio,cardNumber)')
-                    | 1
-                b-radio(v-model='radio'  native-value='2' @input='getAnswer(radio,cardNumber)')
-                    | 2
-                b-radio(v-model='radio'  native-value='3' @input='getAnswer(radio,cardNumber)')
-                    | 3
-                b-radio(v-model='radio'  native-value='4' @input='getAnswer(radio,cardNumber)')
-                    | 4
-                b-radio(v-model='radio'  native-value='5' @input='getAnswer(radio,cardNumber)')
-                    | 5
-            p.content
-                b Selection:
-                  span.selection  {{ radio }}
+        section(class="pl-5 pr-5")
+          div(class="is-flex is-justify-content-space-between")
+            span Not related
+            span Very related
+          b-field
+            b-slider(size='is-medium' :min='1' :max='5' v-model='number' @input='getAnswer(number,cardNumber)')
+              template(v-for='val in [1,2,3,4,5]' )
+                b-slider-tick(:value='val' :key='val') {{ val }}
+
                 
 </template>
 
@@ -28,7 +22,7 @@ export default {
   name: 'statementsCard',
       data(){
         return{
-            radio:''
+           number:1
         }
     },
   props: {

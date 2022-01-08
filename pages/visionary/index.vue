@@ -80,8 +80,9 @@ export default {
   }),
     methods:{
         getAnswer(number,cardNumber){
-            this.cards[cardNumber]=number
-            this.checkCompletion();
+            // this.cards[cardNumber]=number
+            // this.checkCompletion();
+            console.log("number:",number)
         },
         checkCompletion(){
         Object.values(this.cards).every(value=>value !=='')?

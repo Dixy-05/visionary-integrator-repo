@@ -4,31 +4,38 @@
             .topDiv
                 .column
                     .columns
-                      .column(class="is-two-thirds")
+                      .column(class="is-two-thirds is-three-fifths-tablet")
                         h1.assessmentTitle INTEGRATOR INDICATOR ASSESSMENT
-                      .column(class="is-flex is-align-items-center is-justify-content-end")
-                         b-tag.infoTag(type="is-info" size="is-medium") 1 rarely describes you and 5 describes you
+                      .column(class="is-flex is-align-items-center is-justify-content-end ")
+                         b-tag(type="is-info" size="is-medium" ) #1 rarely describes you and #5 describes you
                     .columns
                         .column
-                            card(:key="currentPage" :getAnswer="getAnswer" cardNumber="one" :statement="statements.data[0].text" )
+                            card(:key="current" :getAnswer="getAnswer" cardNumber="one" :statement="statements.data[0].text" :loading="loading")
                         .column
-                            card(:key="currentPage" :getAnswer="getAnswer" cardNumber="two" :statement="statements.data[1].text")
+                            card(:key="current" :getAnswer="getAnswer" cardNumber="two" :statement="statements.data[1].text" :loading="loading")
                     .columns
                         .column
-                            card(:key="currentPage" :getAnswer="getAnswer" cardNumber="three" :statement="statements.data[2].text")
+                            card(:key="current" :getAnswer="getAnswer" cardNumber="three" :statement="statements.data[2].text" :loading="loading")
                         .column
-                            card(:key="currentPage" :getAnswer="getAnswer" cardNumber="four" :statement="statements.data[3].text")
-                    .column(class="is-flex is-justify-content-end")
-                        nuxt-link(:to="currentPage!==6?{path:`/integrator`,query:{page:currentPage}}:{path:'/visionary'}")
-                            b-button(type='is-primary' label="Next Page"  icon-right='chevron-right' :disabled="notCompleted" @click="sendData" )
-                    //- span {{statements}}
-                    span {{stateOne}}
-                    span {{stateTwo}}
-                    span {{stateThree}}
-                    span {{stateFour}}
-                    span {{stateFive}}
-                    span {{currentPage}}
-                    span local current: {{current}}
+                            card(:key="current" :getAnswer="getAnswer" cardNumber="four" :statement="statements.data[3].text" :loading="loading")
+                    .columns
+                      .column(class="is-four-fifths")
+                        section
+                          b-steps(size='is-medium' type="is-base" :has-navigation="false" v-model="stepPage" )
+                            b-step-item( icon='numeric-1'  :clickable="false")
+                            b-step-item( icon='numeric-2' :clickable="false" )
+                            b-step-item( icon='numeric-3' :clickable="false")
+                            b-step-item( icon='numeric-4' :clickable="false")
+                            b-step-item( icon='numeric-5' :clickable="false")
+
+                      .column(class="is-flex is-justify-content-end")
+                        div
+                          nuxt-link(:to="{path:`/integrator`,query:{page:current}}" v-if='current<5')
+                              b-button(type='is-base' label="Next Page"  icon-right='chevron-right'  @click="sendData" )
+                        div
+                          nuxt-link(:to="visionaryCompleted?{path:'/result'}:{path:`/visionary`}" v-if='current==5')
+                              b-button(type='is-primary' :label="visionaryCompleted?'Get Results':'Visionary Assessment'"  icon-right='chevron-right'  @click="sendData" )
+                    
 
 </template>
 <script>
@@ -36,32 +43,31 @@ import { mapState } from 'vuex'
 import Card from '@/components/Card.vue'
 export default {
     name:"integratorPage",
-    layout:'assessment',
     components:{
         Card
     },
+    layout:'assessment',
+    scrollToTop:true,
+    fetchOnServer: false,
     data(){
-        return{
+        return {
             cards:{
-                one:'',
-                two:'',
-                three:'',
-                four:''
+                one:3,
+                two:3,
+                three:3,
+                four:3
             },
-            notCompleted:true,
             current:1,
+            stepPage:0
         }
     },
-      async fetch({ store, error, route }) {
-        store.dispatch('integrator/sendCurrentPage',1)
+     async fetch({ store, error,route }) {
     try {
-      await store.dispatch('integrator/fetchIntegratorStatements', {
+      await store.dispatch('integrator/fetchStatements', {
         perPage: 4,
-        page: 1
-        // page: store.state.visionary.currentPage,
+        page: +route.query.page|| 1
       })
-
-    } catch {
+    } catch(e) {
       error({
         statusCode: 503,
         message: 'Unable to fetch statements at this time. Please try again.',
@@ -70,28 +76,27 @@ export default {
   },
 
     computed: mapState({
-    stateOne: (state) => state.integrator.one,
-    stateTwo: (state) => state.integrator.two,
-    stateThree: (state) => state.integrator.three,
-    stateFour: (state) => state.integrator.four,
-    stateFive: (state) => state.integrator.five,
-    statements:(state)=>state.integrator.integratorStatements,
-    currentPage: (state) => state.integrator.currentPage,
+    statements:(state)=> state.integrator.statements,
+    loading: (state) => state.integrator.isLoading,
+    // finding out if visionary assessment is completed
+    visionaryCompleted: (state) => state.integrator.visionaryIsCompleted,
   }),
     methods:{
         getAnswer(number,cardNumber){
             this.cards[cardNumber]=number
-            this.checkCompletion();
+            // this.checkCompletion();
+            console.log("number:",number)
         },
-        checkCompletion(){
-        Object.values(this.cards).every(value=>value !=='')?
-         this.notCompleted=false:
-         this.notCompleted=true
-        },
+        // checkCompletion(){
+        // Object.values(this.cards).every(value=>value !=='')?
+        //  this.notCompleted=false:
+        //  this.notCompleted=true
+        // },
 
       sendData(){
-        this.current++
-          this.$store.dispatch('integrator/sendCurrentPage',this.currentPage+1)
+
+      
+          // this.$store.dispatch('visionary/sendCurrentPage',this.currentPage++)
             const cardsArr=Object.values(this.cards);
             const arr=['one','two','three','four','five'];
             for(let i=0;i<arr.length;i++){
@@ -101,22 +106,25 @@ export default {
             }
             // clear cards answers
            for(let i=0;i<4;i++){
-             this.$data.cards[arr[i]]=''
+             this.$data.cards[arr[i]]=3
            }
            this.notCompleted=true;
-           this.nextPage()
-             // call fetch()
-            // this.$nuxt.refresh()
+           this.stepPage++;
+           this.current!==5&&this.nextPage()
+          // sending completion to visionary state
+          this.current===5 && this.$store.dispatch('visionary/integratorIsCompleted',true)
+
         },
-        async nextPage(){
+      async nextPage(){
+          this.current++
+        this.$store.dispatch('integrator/isLoading',true)
           try {
-            await this.$store.dispatch('integrator/fetchIntegratorStatements', {
+             await this.$store.dispatch('integrator/fetchStatements', {
               perPage: 4,
               page: this.current
             })
-
-          } catch(error) {
-          return error
+          } catch(err) {
+          return {err}
               }
           }
     }
@@ -134,13 +142,9 @@ export default {
 }
 @media only screen and (max-width: 440px) {
   .assessmentTitle {
-          margin-top:1.5em;
+    margin-top:1.5em;
     font-size: 1.5em;
   text-align: center;
-  }
-  .infoTag{
-    font-family: 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color:red;
   }
 }
 </style>

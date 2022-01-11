@@ -7,5 +7,6 @@ export default () => ({
    five:[],
    statements:[],
    currentPage:1,
-   isLoading:false
+   isLoading:false,
+   integratorIsCompleted:false
   })

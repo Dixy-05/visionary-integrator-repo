@@ -1,3 +1,4 @@
+// visionary mutations
 export default {
     SET_NUMBER(state, payload) {
       state[payload.stateProp].push(payload.number)
@@ -12,5 +13,9 @@ export default {
     SET_IS_LOADING(state, payload) {
       state.isLoading=payload
     },
+    SET_INTEGRATOR_IS_COMPLETED(state, payload) {
+      state.integratorIsCompleted=payload
+    },
+  
   }
   

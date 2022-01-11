@@ -1,9 +1,12 @@
+// integrator state
 export default () => ({
     one:[],
     two:[],
     three:[],
     four:[],
     five:[],
-    integratorStatements:[],
-    currentPage:1
+    statements:[],
+    currentPage:1,
+    isLoading:false,
+    visionaryIsCompleted:false
    })

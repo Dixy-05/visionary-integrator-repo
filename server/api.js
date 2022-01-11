@@ -14,7 +14,10 @@ export default {
     return apiClient.get(`/visionaryStatements?_limit=${perPage}&_page=${page}`)
   },
   getIntegratorStatements(perPage, page) {
-    return apiClient.get(`/events?_limit=${perPage}&_page=${page}`)
+    return apiClient.get(`/integratorStatements?_limit=${perPage}&_page=${page}`)
+  },
+  registerUser(payload) {
+    return apiClient.post('/user',payload)
   },
 
 }

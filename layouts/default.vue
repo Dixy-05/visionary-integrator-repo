@@ -9,7 +9,6 @@
           header.card-header
             p.card-header-title
               h1.mainTitle(class="mr-6") Visionary or Integrator ?
-
     nuxt
 </template>
 

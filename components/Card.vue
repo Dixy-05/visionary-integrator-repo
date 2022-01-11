@@ -3,18 +3,24 @@
     .main
       .header
         template(v-if="!loading")
-          span {{statement}} {{loading}}
+          span {{statement}}
         b-skeleton(:active="loading" :count="2")
       hr.divider(type="is-danger")
       .content
         section(class="pl-5 pr-5")
           div(class="is-flex is-justify-content-space-between")
-            span Not related
-            span Very related
+            span(v-if="!loading") Not related
+            span(v-if="loading")
+              b-skeleton(:active="loading" width='7em')
+            span(v-if="!loading") Very related
+            span(v-if="loading")
+              b-skeleton(:active="loading" width='7em')
           b-field
-            b-slider(size='is-medium' :min='1' :max='5' v-model='number'  @input='getAnswer(number,cardNumber)')
-              template(v-for='val in [1,2,3,4,5]' )
-                b-slider-tick(:value='val' :key='val') {{ val }}
+            template(v-if="!loading")
+              b-slider(size='is-medium' :min='1' :max='5' v-model='number'  @input='getAnswer(number,cardNumber)')
+                template(v-for='val in [1,2,3,4,5]' )
+                  b-slider-tick(:value='val' :key='val') {{ val }}
+            b-skeleton(:active="loading" height="2em")
 
                 
 </template>

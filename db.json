@@ -1,166 +1,188 @@
 {
-    "visionaryStatements": [
-      {
-        "id": 1,
-        "text": "I have affinity for tackling and creatively solving the biggest, most complex problems."
-      },
-      {
-        "id": 2,
-        "text": "I am constantly generating new ideas I never run out."
-      },
-      {
-        "id": 3,
-        "text": "I am a great leader. People tend to follow me."
-      },
-      {
-        "id": 4,
-        "text": "I am highly optimistic in my outlook."
-      },
-      {
-        "id": 5,
-        "text": "My natural perspective is oriented toward things that are external to the company, big-picture or futuristic thinking."
-      },
-      {
-        "id": 6,
-        "text": "I am the creator of, and champion for, the company Vision."
-      },
-      {
-        "id": 7,
-        "text": "I sometimes find it difficult to translate my Vision into something that others understand. They don't seem to get it."
-      },
-      {
-        "id": 8,
-        "text": "I eventually have the \"right\" idea. It may come from having a large volume of different ideas or a small number that I feel strongly about."
-      },
-      {
-        "id": 9,
-        "text": "I have zero patience for putting operational policy, structure, and repeatability systems in place."
-      },
-      {
-        "id": 10,
-        "text": "I naturally think about the future of th e industry, our product or our service, what's coming, and how we can best position the company to take advantage of it."
-      },
-      {
-        "id": 11,
-        "text": "I am naturally insightful, skilled at deductive, reasoning, and highly innovative in thinking of ways to make ideas bigger and better."
-      },
-      {
-        "id": 12,
-        "text": "I don't like being held accountable or being told what to do. I find it challenging to establish genuine accountability in my company."
-      },
-      {
-        "id": 13,
-        "text": "I embrace and enjoy the role of being the engine for big, new, breakthrough ideas, the spark, getting them started."
-      },
-      {
-        "id": 14,
-        "text": "I embrace and enjoy the role of solving the biggest problems faced by the company."
-      },
-      {
-        "id": 15,
-        "text": "I embrace and enjoy the role of being responsible for a few large, key strategic, relationships (vendor, client, banking,industry)."
-      },
-      {
-        "id": 16,
-        "text": "I embrace and enjoy the role of selling and closing big deals."
-      },
-      {
-        "id": 17,
-        "text": "I struggle with follow-through. I lose interest in finishing new ideas. I don't have patience or interest for a lot of detail. I wish people would get to the point. I get bored and distracted very easily."
-      },
-      {
-        "id": 18,
-        "text": "I embrace and enjoy the role of being the \"entrepreneurial spark plug,\" providing passion and inspiration."
-      },
-      {
-        "id": 19,
-        "text": "I embrace and enjoy the role of researching and developing new products and services."
-      },
-      {
-        "id": 20,
-        "text": "I embrace and enjoy the role of leading the way on learning and discovery that advances the organization."
-      }
-    ],
-    "integratorStatements": [
-      {
-        "id": 21,
-        "text": "I am adept at quickly identifying and articulating problems, bottlenecks, disconnects, roadblocks, and barriers."
-      },
-      {
-        "id": 22,
-        "text": "I am great at taking ideas and effectively initializing plans to make them a reality."
-      },
-      {
-        "id": 23,
-        "text": "I am a great manager of people."
-      },
-      {
-        "id": 24,
-        "text": "I get accused of being a pessimist and \"hole poker.\""
-      },
-      {
-        "id": 25,
-        "text": "My natural perspective is oriented toward things that are internal to the company. Getting the house in order/ship-shape."
-      },
-      {
-        "id": 26,
-        "text": "I am good at (and get a rush out of) being provided with a company Vision, and then turning it into something real."
-      },
-      {
-        "id": 27,
-        "text": "I am really good at translating someone's Vision into something others can understand and get on board with, laying a solid foundation for execution."
-      },
-      {
-        "id": 28,
-        "text": "I am great at choosing which options are the best priorities foe the organization."
-      },
-      {
-        "id": 29,
-        "text": "I recognize the need for operational policy, structures and repeatability to make the Vision a reality. I am able to define meaningful rules and put them in place, without slowing things down and while improving efficiency."
-      },
-      {
-        "id": 30,
-        "text": "I naturally think about the present, what needs to happen now, and how to keep everything on track fo the future vision."
-      },
-      {
-        "id": 31,
-        "text": "I am naturally analytical, skilled at deductive reasoning , and highly adept at implementing solutions."
-      },
-      {
-        "id": 32,
-        "text": "I am comfortable being held accountable, and holding others accountable.I see the value in creating the infrastructure for accountability across the organization and I am comfortable putting this in place."
-      },
-      {
-        "id": 33,
-        "text": "i embrace adn enjoy the role of executing and delivering P&L results."
-      },
-      {
-        "id": 34,
-        "text": "I embrace and enjoy the role of providing leadership, management, and accountability for the company's Leadership Team."
-      },
-      {
-        "id": 35,
-        "text": "I embrace and enjoy the role of effectively integrating all the major functions of the organization."
-      },
-      {
-        "id": 36,
-        "text": "I embrace and enjoy the role of effectively resolving cross-functional issues, making sure they are harmoniously integrated and orchestrated."
-      },
-      {
-        "id": 37,
-        "text": "I embrace and enjoy the role of ensuring adherence to the organizations core processes and operation system."
-      },
-      {
-        "id": 38,
-        "text": "I embrace and enjoy the role of ensuring the organization is aligned with the company's Core Values"
-      },
-      {
-        "id": 39,
-        "text": "I love running the day-to-day of the business, and take great pride in \"making sure the trains run on time.\""
-      },
-      {
-        "id": 40,
-        "text": "I embrace and enjoy the role of ensuring the communication is effectively flowing across the organization."
-      }
-    ]
-}  
+  "visionaryStatements": [
+    {
+      "id": 1,
+      "text": "I have affinity for tackling and creatively solving the biggest, most complex problems."
+    },
+    {
+      "id": 2,
+      "text": "I am constantly generating new ideas I never run out."
+    },
+    {
+      "id": 3,
+      "text": "I am a great leader. People tend to follow me."
+    },
+    {
+      "id": 4,
+      "text": "I am highly optimistic in my outlook."
+    },
+    {
+      "id": 5,
+      "text": "My natural perspective is oriented toward things that are external to the company, big-picture or futuristic thinking."
+    },
+    {
+      "id": 6,
+      "text": "I am the creator of, and champion for the company's Vision."
+    },
+    {
+      "id": 7,
+      "text": "I sometimes find it difficult to translate my Vision into something that others understand. They don't seem to get it."
+    },
+    {
+      "id": 8,
+      "text": "I eventually have the \"right\" idea. It may come from having a large volume of different ideas or a small number that I feel strongly about."
+    },
+    {
+      "id": 9,
+      "text": "I have zero patience for putting operational policy, structure, and repeatability systems in place."
+    },
+    {
+      "id": 10,
+      "text": "I naturally think about the future of the industry, our product or our service, what's coming, and how we can best position the company to take advantage of it."
+    },
+    {
+      "id": 11,
+      "text": "I am naturally insightful, skilled at deductive reasoning, and highly innovative in thinking of ways to make ideas bigger and better."
+    },
+    {
+      "id": 12,
+      "text": "I don't like being held accountable or being told what to do. I find it challenging to establish genuine accountability in my company."
+    },
+    {
+      "id": 13,
+      "text": "I embrace and enjoy the role of being the starter or engine for big new breakthrough ideas, the spark that gets them started."
+    },
+    {
+      "id": 14,
+      "text": "I embrace and enjoy the role of solving the biggest problems faced by the company."
+    },
+    {
+      "id": 15,
+      "text": "I embrace and enjoy the role of being responsible for a few large, key strategic, relationships (vendor, client, banking,industry)."
+    },
+    {
+      "id": 16,
+      "text": "I embrace and enjoy the role of selling and closing big deals."
+    },
+    {
+      "id": 17,
+      "text": "I struggle with follow-through. I lose interest in finishing new ideas. I don't have patience or interest for a lot of detail. I wish people would get to the point. I get bored and distracted very easily."
+    },
+    {
+      "id": 18,
+      "text": "I embrace and enjoy the role of being the \"entrepreneurial spark plug,\" providing passion and inspiration."
+    },
+    {
+      "id": 19,
+      "text": "I embrace and enjoy the role of researching and developing new products and services."
+    },
+    {
+      "id": 20,
+      "text": "I embrace and enjoy the role of leading the way on learning and discovery that advances the organization."
+    }
+  ],
+  "integratorStatements": [
+    {
+      "id": 21,
+      "text": "I am adept at quickly identifying and articulating problems, bottlenecks, disconnects, roadblocks, and barriers."
+    },
+    {
+      "id": 22,
+      "text": "I am great at taking ideas and effectively initializing plans to make them a reality."
+    },
+    {
+      "id": 23,
+      "text": "I am a great manager of people."
+    },
+    {
+      "id": 24,
+      "text": "I get accused of being a pessimist and \"hole poker.\""
+    },
+    {
+      "id": 25,
+      "text": "My natural perspective is oriented toward things that are internal to the company. Getting the house in order/ship-shape."
+    },
+    {
+      "id": 26,
+      "text": "I am good at (and get a rush out of) being provided with a company Vision, and then turning it into something real."
+    },
+    {
+      "id": 27,
+      "text": "I am really good at translating someone's Vision into something others can understand and get on board with, laying a solid foundation for execution."
+    },
+    {
+      "id": 28,
+      "text": "I am great at choosing which options are the best priorities for the organization."
+    },
+    {
+      "id": 29,
+      "text": "I recognize the need for operational policy, structures and repeatability to make the Vision a reality. I am able to define meaningful rules and put them in place, without slowing things down and while improving efficiency."
+    },
+    {
+      "id": 30,
+      "text": "I naturally think about the present, what needs to happen now, and how to keep everything on track fo the future vision."
+    },
+    {
+      "id": 31,
+      "text": "I am naturally analytical, skilled at deductive reasoning, and highly adept at implementing solutions."
+    },
+    {
+      "id": 32,
+      "text": "I am comfortable being held accountable, and holding others accountable. I see the value in creating the infrastructure for accountability across the organization and I am comfortable putting this in place."
+    },
+    {
+      "id": 33,
+      "text": "I embrace and enjoy the role of executing and delivering P&L results."
+    },
+    {
+      "id": 34,
+      "text": "I embrace and enjoy the role of providing leadership, management, and accountability for the company's Leadership Team."
+    },
+    {
+      "id": 35,
+      "text": "I embrace and enjoy the role of effectively integrating all the major functions of the organization."
+    },
+    {
+      "id": 36,
+      "text": "I embrace and enjoy the role of effectively resolving cross-functional issues, making sure they are harmoniously integrated and orchestrated."
+    },
+    {
+      "id": 37,
+      "text": "I embrace and enjoy the role of ensuring adherence to the organizations core processes and operation system."
+    },
+    {
+      "id": 38,
+      "text": "I embrace and enjoy the role of ensuring the organization is aligned with the company's Core Values"
+    },
+    {
+      "id": 39,
+      "text": "I love running the day-to-day of the business, and take great pride in \"making sure the trains run on time.\""
+    },
+    {
+      "id": 40,
+      "text": "I embrace and enjoy the role of ensuring the communication is effectively flowing across the organization."
+    }
+  ],
+  "user": [
+    {
+      "firstName": "Dixy",
+      "lastName": "Barahona",
+      "email": "dixy@gmail.com",
+      "id": 1
+    },
+    {
+      "firstName": "Jorge",
+      "lastName": "Lozano",
+      "email": "jorge@gmail.com",
+      "id": 2
+    },
+    {
+      "firstName": "Manuel",
+      "lastName": "Lozano",
+      "email": "manuel@gmcil.com",
+      "id": 3
+    }
+  ],
+  "visionaryResult": [],
+  "integratorResult": []
+}

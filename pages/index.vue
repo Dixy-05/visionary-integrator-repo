@@ -13,6 +13,7 @@
                   p.subtitle 
                     b-icon(icon="hand-pointing-right")
                     |You can choose either assessment to begin 
+                    span {{user.data}}
                   
             p(v-if="showForm")
               b.beforeStart BEFORE WE START, 
@@ -46,7 +47,7 @@
 </template>
 
 <script>
-// import Card from '~/components/Card'
+import { mapState } from 'vuex'
 
 export default {
   name: 'IndexPage',
@@ -65,8 +66,8 @@ export default {
         this.notRegistered()
       }
     },
-notRegistered() {
-  this.$buefy.toast.open({
+    notRegistered() {
+    this.$buefy.toast.open({
     message: 'Please Fill out Register Form and Register, to start assessment',
     type: 'is-danger',
     duration: 5000,
@@ -74,10 +75,14 @@ notRegistered() {
     })
     },
     register(){
+      this.$store.dispatch('register/registerUser',{firstName:this.firstName,lastName:this.lastName,email:this.email})
       this.showForm=false
       this.registered=true
     }
-  }
+  },
+     computed: mapState({
+    user: (state) => state.register.user
+  }),
 }
 </script>
 <style  scoped>

@@ -1,4 +1,4 @@
-
+// visionary actions
 import Fetch from '@/server/api.js'
 export default {
    sendNumber({ commit }, payload) {
@@ -14,4 +14,8 @@ export default {
   isLoading({ commit }, payload) {
    return commit('SET_IS_LOADING',payload)
  },
-}
+ integratorIsCompleted({ commit }, payload) {
+  return commit('SET_INTEGRATOR_IS_COMPLETED',payload)
+},
+
+} 

@@ -13,7 +13,6 @@
                   p.subtitle 
                     b-icon(icon="hand-pointing-right")
                     |You can choose either assessment to begin 
-                    span {{user.data}}
                   
             p(v-if="showForm")
               b.beforeStart BEFORE WE START, 

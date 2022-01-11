@@ -7,14 +7,14 @@ export default {
       state.statements=payload.response;
       state.isLoading=payload.loading
     },
-    SET_CURRENT_PAGE(state, payload) {
-      state.currentPage=payload
-    },
     SET_IS_LOADING(state, payload) {
       state.isLoading=payload
     },
     SET_INTEGRATOR_IS_COMPLETED(state, payload) {
       state.integratorIsCompleted=payload
+    },
+    SET_RESULTS(state, payload) {
+      state.results=payload
     },
   
   }

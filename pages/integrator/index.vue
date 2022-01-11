@@ -31,15 +31,16 @@
                       .column(class="is-flex is-justify-content-end")
                         div
                           nuxt-link(:to="{path:`/integrator`,query:{page:current}}" v-if='current<5')
-                              b-button(type='is-base' label="Next Page"  icon-right='chevron-right'  @click="sendData" )
+                              b-button(type='is-base' label="Next Page"  icon-right='chevron-right'  @click="sendToStore" )
                         div
                           nuxt-link(:to="visionaryCompleted?{path:'/result'}:{path:`/visionary`}" v-if='current==5')
-                              b-button(type='is-primary' :label="visionaryCompleted?'Get Results':'Visionary Assessment'"  icon-right='chevron-right'  @click="sendData" )
+                              b-button(type='is-primary' :label="visionaryCompleted?'Get Results':'Visionary Assessment'"  icon-right='chevron-right'  @click="lastAnswerToStore" )
                     
 
 </template>
 <script>
 import { mapState } from 'vuex'
+import Fetch from '@/server/api.js'
 import Card from '@/components/Card.vue'
 export default {
     name:"integratorPage",
@@ -76,6 +77,12 @@ export default {
   },
 
     computed: mapState({
+    userId: (state) => state.register.user,
+    arrOne: (state) => state.integrator.one,
+    arrTwo: (state) => state.integrator.two,
+    arrThree: (state) => state.integrator.three,
+    arrFour: (state) => state.integrator.four,
+    arrFive: (state) => state.integrator.five,
     statements:(state)=> state.integrator.statements,
     loading: (state) => state.integrator.isLoading,
     // finding out if visionary assessment is completed
@@ -84,19 +91,9 @@ export default {
     methods:{
         getAnswer(number,cardNumber){
             this.cards[cardNumber]=number
-            // this.checkCompletion();
-            console.log("number:",number)
         },
-        // checkCompletion(){
-        // Object.values(this.cards).every(value=>value !=='')?
-        //  this.notCompleted=false:
-        //  this.notCompleted=true
-        // },
 
-      sendData(){
-
-      
-          // this.$store.dispatch('visionary/sendCurrentPage',this.currentPage++)
+      sendToStore(){
             const cardsArr=Object.values(this.cards);
             const arr=['one','two','three','four','five'];
             for(let i=0;i<arr.length;i++){
@@ -108,15 +105,11 @@ export default {
            for(let i=0;i<4;i++){
              this.$data.cards[arr[i]]=3
            }
-           this.notCompleted=true;
-           this.stepPage++;
-           this.current!==5&&this.nextPage()
-          // sending completion to visionary state
-          this.current===5 && this.$store.dispatch('visionary/integratorIsCompleted',true)
-
+           this.nextPage()
         },
       async nextPage(){
-          this.current++
+        this.stepPage++;
+        this.current++
         this.$store.dispatch('integrator/isLoading',true)
           try {
              await this.$store.dispatch('integrator/fetchStatements', {
@@ -126,8 +119,32 @@ export default {
           } catch(err) {
           return {err}
               }
-          }
-    }
+          },
+      lastAnswerToStore(){
+      // sending completion to visionary state
+      this.current === 5 && this.$store.dispatch('visionary/integratorIsCompleted',true)
+      // send last result to store
+       const cardsArr=Object.values(this.cards);
+           const arr=['one','two','three','four','five'];
+           for(let i=0;i<arr.length;i++){
+           cardsArr.filter(num=>+num===i+1).forEach(num=>
+                this.$store.dispatch('integrator/sendNumber',{number:num,stateProp:arr[i]})
+               )
+           }
+        this.sendToDataBase()
+      },
+     async sendToDataBase(){
+        // send to Database
+        await Fetch.sendToIntegrator({
+          one:this.arrOne.length,
+          two:this.arrTwo.length,
+          three:this.arrThree.length,
+          four:this.arrFour.length,
+          five:this.arrFive.length,
+          userId:this.userId.data.id,
+        })
+     }
+    },
 }
 </script>
 <style  scoped>

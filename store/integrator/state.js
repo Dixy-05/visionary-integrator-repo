@@ -8,5 +8,6 @@ export default () => ({
     statements:[],
     currentPage:1,
     isLoading:false,
-    visionaryIsCompleted:false
+    visionaryIsCompleted:false,
+    results:{}
    })

@@ -19,5 +19,16 @@ export default {
   registerUser(payload) {
     return apiClient.post('/user',payload)
   },
-
+  sendToIntegrator(payload){
+    return apiClient.post('/integratorScore',payload)
+  },
+  sendToVisionary(payload){
+    return apiClient.post('/visionaryScore',payload)
+  },
+  getIntegratorResults(userId){
+    return apiClient.get(`/integratorScore?userId_like=${userId}`)
+  },
+  getVisionaryResults(userId){
+    return apiClient.get(`/visionaryScore?userId_like=${userId}`)
+  }
 }

@@ -165,24 +165,104 @@
   ],
   "user": [
     {
-      "firstName": "Dixy",
-      "lastName": "Barahona",
-      "email": "dixy@gmail.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john@gmai.com",
       "id": 1
     },
     {
-      "firstName": "Jorge",
-      "lastName": "Lozano",
-      "email": "jorge@gmail.com",
+      "firstName": "hh",
+      "lastName": "kj",
+      "email": "eke@g.com",
       "id": 2
     },
     {
-      "firstName": "Manuel",
-      "lastName": "Lozano",
-      "email": "manuel@gmcil.com",
+      "firstName": "hello",
+      "lastName": "world",
+      "email": "ee@g.acom",
       "id": 3
+    },
+    {
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "email": "jane@gmail.com",
+      "id": 4
     }
   ],
-  "visionaryResult": [],
-  "integratorResult": []
+  "visionaryScore": [
+    {
+      "one": 0,
+      "two": 0,
+      "three": 20,
+      "four": 0,
+      "five": 0,
+      "userId": 1,
+      "id": 1
+    },
+    {
+      "one": 0,
+      "two": 0,
+      "three": 20,
+      "four": 0,
+      "five": 0,
+      "userId": 2,
+      "id": 2
+    },
+    {
+      "one": 0,
+      "two": 0,
+      "three": 20,
+      "four": 0,
+      "five": 0,
+      "userId": 3,
+      "id": 3
+    },
+    {
+      "one": 0,
+      "two": 0,
+      "three": 20,
+      "four": 0,
+      "five": 0,
+      "userId": 4,
+      "id": 4
+    }
+  ],
+  "integratorScore": [
+    {
+      "one": 0,
+      "two": 0,
+      "three": 20,
+      "four": 0,
+      "five": 0,
+      "userId": 1,
+      "id": 1
+    },
+    {
+      "one": 0,
+      "two": 0,
+      "three": 20,
+      "four": 0,
+      "five": 0,
+      "userId": 2,
+      "id": 2
+    },
+    {
+      "one": 0,
+      "two": 0,
+      "three": 20,
+      "four": 0,
+      "five": 0,
+      "userId": 3,
+      "id": 3
+    },
+    {
+      "one": 0,
+      "two": 0,
+      "three": 20,
+      "four": 0,
+      "five": 0,
+      "userId": 4,
+      "id": 4
+    }
+  ]
 }

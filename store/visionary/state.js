@@ -8,5 +8,6 @@ export default () => ({
    statements:[],
    currentPage:1,
    isLoading:false,
-   integratorIsCompleted:false
+   integratorIsCompleted:false,
+   results:{}
   })

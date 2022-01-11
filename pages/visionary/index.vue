@@ -31,20 +31,16 @@
                       .column(class="is-flex is-justify-content-end")
                         div
                           nuxt-link(:to="{path:`/visionary`,query:{page:current}}" v-if='current<5')
-                              b-button(type='is-primary' label="Next Page"  icon-right='chevron-right'  @click="sendData" )
+                              b-button(type='is-primary' label="Next Page"  icon-right='chevron-right'  @click="sendToStore" )
                         div
                           nuxt-link(:to="integratorCompleted?{path:'/result'}:{path:`/integrator`}" v-if='current==5')
-                              b-button(type='is-base' :label="integratorCompleted?'Get Results':'Integrator Assessment'"  icon-right='chevron-right'  @click="sendData" )
-                    span {{stateOne}}
-                    span {{stateTwo}}
-                    span {{stateThree}}
-                    span {{stateFour}}
-                    span {{stateFive}}
+                              b-button(type='is-base' :label="integratorCompleted?'Get Results':'Integrator Assessment'"  icon-right='chevron-right'  @click="lastAnswerToStore" )
 
 </template>
 <script>
 // :statement="statements.data[0].text"
 import { mapState } from 'vuex'
+import Fetch from '@/server/api.js'
 import Card from '@/components/Card.vue'
 export default {
     name:"visionaryPage",
@@ -84,14 +80,15 @@ export default {
   },
 
     computed: mapState({
-    stateOne: (state) => state.visionary.one,
-    stateTwo: (state) => state.visionary.two,
-    stateThree: (state) => state.visionary.three,
-    stateFour: (state) => state.visionary.four,
-    stateFive: (state) => state.visionary.five,
+    userId: (state) => state.register.user,
+    arrOne: (state) => state.visionary.one,
+    arrTwo: (state) => state.visionary.two,
+    arrThree: (state) => state.visionary.three,
+    arrFour: (state) => state.visionary.four,
+    arrFive: (state) => state.visionary.five,
     statements:(state)=> state.visionary.statements,
     loading: (state) => state.visionary.isLoading,
-  // finding out if visionary assessment is completed
+  // finding out if integrator assessment is completed
   integratorCompleted: (state) => state.visionary.integratorIsCompleted,
 
   }),
@@ -100,7 +97,7 @@ export default {
             this.cards[cardNumber]=number
         },
 
-      sendData(){
+      sendToStore(){
             const cardsArr=Object.values(this.cards);
             const arr=['one','two','three','four','five'];
             for(let i=0;i<arr.length;i++){
@@ -112,9 +109,7 @@ export default {
            for(let i=0;i<4;i++){
              this.$data.cards[arr[i]]=3
            }
-           this.current!==5&&this.nextPage()
-           // sending completion to integrator state
-           this.current===5 && this.$store.dispatch('integrator/visionaryIsCompleted',true)
+           this.nextPage()
             // this.$nuxt.refresh()
         },
       async nextPage(){
@@ -129,7 +124,32 @@ export default {
           } catch(err) {
           return {err}
               }
-          }
+          },
+          lastAnswerToStore(){
+          // sending completion to integrator state
+           this.current===5 && this.$store.dispatch('integrator/visionaryIsCompleted',true)
+          // send last result to store
+            const cardsArr=Object.values(this.cards);
+            const arr=['one','two','three','four','five'];
+            for(let i=0;i<arr.length;i++){
+            cardsArr.filter(num=>+num===i+1).forEach(num=>
+                 this.$store.dispatch('visionary/sendNumber',{number:num,stateProp:arr[i]})
+                )
+            }
+              this.sendToDataBase()
+          },
+        async sendToDataBase(){
+        // send to Database
+        await Fetch.sendToVisionary({
+          one:this.arrOne.length,
+          two:this.arrTwo.length,
+          three:this.arrThree.length,
+          four:this.arrFour.length,
+          five:this.arrFive.length,
+          userId:this.userId.data.id,
+        })
+     }
+
     }
 }
 </script>

@@ -167,32 +167,14 @@
     {
       "firstName": "John",
       "lastName": "Doe",
-      "email": "john@gmai.com",
+      "email": "john@gmail.com",
       "id": 1
     },
     {
-      "firstName": "hh",
-      "lastName": "kj",
-      "email": "eke@g.com",
+      "firstName": "d",
+      "lastName": "e",
+      "email": "e@gc.com",
       "id": 2
-    },
-    {
-      "firstName": "hello",
-      "lastName": "world",
-      "email": "ee@g.acom",
-      "id": 3
-    },
-    {
-      "firstName": "Jane",
-      "lastName": "Doe",
-      "email": "jane@gmail.com",
-      "id": 4
-    },
-    {
-      "firstName": "test",
-      "lastName": "name",
-      "email": "test@gmail.com",
-      "id": 5
     }
   ],
   "visionaryScore": [
@@ -204,96 +186,24 @@
       "five": 0,
       "userId": 1,
       "id": 1
-    },
-    {
-      "one": 0,
-      "two": 0,
-      "three": 20,
-      "four": 0,
-      "five": 0,
-      "userId": 2,
-      "id": 2
-    },
-    {
-      "one": 0,
-      "two": 0,
-      "three": 20,
-      "four": 0,
-      "five": 0,
-      "userId": 3,
-      "id": 3
-    },
-    {
-      "one": 0,
-      "two": 0,
-      "three": 20,
-      "four": 0,
-      "five": 0,
-      "userId": 4,
-      "id": 4
-    },
-    {
-      "one": 0,
-      "two": 5,
-      "three": 9,
-      "four": 5,
-      "five": 1,
-      "userId": 5,
-      "id": 5
     }
   ],
   "integratorScore": [
     {
-      "one": 0,
+      "one": 1,
       "two": 0,
-      "three": 20,
-      "four": 0,
-      "five": 0,
+      "three": 12,
+      "four": 5,
+      "five": 2,
       "userId": 1,
       "id": 1
-    },
-    {
-      "one": 0,
-      "two": 0,
-      "three": 20,
-      "four": 0,
-      "five": 0,
-      "userId": 2,
-      "id": 2
-    },
-    {
-      "one": 0,
-      "two": 0,
-      "three": 20,
-      "four": 0,
-      "five": 0,
-      "userId": 3,
-      "id": 3
-    },
-    {
-      "one": 0,
-      "two": 0,
-      "three": 20,
-      "four": 0,
-      "five": 0,
-      "userId": 4,
-      "id": 4
-    },
-    {
-      "one": 1,
-      "two": 5,
-      "three": 10,
-      "four": 3,
-      "five": 1,
-      "userId": 5,
-      "id": 5
     }
   ],
   "result": [
     {
-      "visionary": 42,
-      "integrator": 38,
-      "userId": 5,
+      "visionary": 40,
+      "integrator": 47,
+      "userId": 1,
       "id": 1
     }
   ]

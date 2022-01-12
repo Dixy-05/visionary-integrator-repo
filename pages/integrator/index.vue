@@ -34,7 +34,7 @@
                               b-button(type='is-base' label="Next Page"  icon-right='chevron-right'  @click="sendToStore" )
                         div
                           nuxt-link(:to="visionaryCompleted?{path:'/result'}:{path:`/visionary`}" v-if='current==5')
-                              b-button(type='is-primary' :label="visionaryCompleted?'Get Results':'Visionary Assessment'"  icon-right='chevron-right'  @click="lastAnswerToStore" )
+                              b-button(type='is-base' :label="visionaryCompleted?'Get Results':'Visionary Assessment'"  icon-right='chevron-right'  @click="lastAnswerToStore" )
                     
 
 </template>

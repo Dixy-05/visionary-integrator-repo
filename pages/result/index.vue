@@ -32,6 +32,7 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import Fetch from '@/server/api.js'
 
 export default {
     name:"resultPage",
@@ -39,8 +40,8 @@ export default {
         return{
             visionaryTotal:Number,
             integratorTotal:Number,
-            visionaryDefinition:"As a visionary you are extremely passionate about product, service, company, and costumers. You typically have ten new ideas a week. Many of them may not be so good, how ever a few are absolutely brilliant, and those few great ideas keep the organization growing.Those great ideas can take companies to the moon. For that reason, yor are invaluable.",
-            integratorDefinition:"An integrator is a person who has the unique ability to harmoniously integrate the major functions of the business, run the organization, and manage the day to day issues that arise. The integrator is the glue that hold the people, processes, systems, priorities and strategy of the company together. \"Integrator\" is the best word to describe titles such as president, COO, general manager, or chief of staff."
+            visionaryDefinition:"As a Visionary you are extremely passionate about product, service, company, and costumers. You typically have ten new ideas a week, many of them may not be so good, how ever a few are absolutely brilliant, and those few great ideas keep the organization growing. Those great ideas can take companies to the moon. For that reason, yor are invaluable.",
+            integratorDefinition:"An Integrator is a person who has the unique ability to harmoniously integrate the major functions of the business, run the organization, and manage the day to day issues that arise. The integrator is the glue that holds the people, processes, systems, priorities and strategy of the company together. \"Integrator\" is the best word to describe titles such as president, COO, general manager, or chief of staff."
         }
     },
     computed: mapState({
@@ -60,8 +61,17 @@ export default {
       })
     }
   },
-  created(){
+  async created(){
       this.calculate()
+        try{
+            await Fetch.sendToResult({
+                visionary:this.visionaryTotal,
+                integrator:this.integratorTotal,
+                userId:this.$store.state.register.user.data.id
+            })
+        }catch(err){
+            return err
+        }
   },
   methods:{
       calculate(){

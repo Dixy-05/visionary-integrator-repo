@@ -30,5 +30,8 @@ export default {
   },
   getVisionaryResults(userId){
     return apiClient.get(`/visionaryScore?userId_like=${userId}`)
+  },
+  sendToResult(payload){
+    return apiClient.post('/result',payload)
   }
 }

@@ -34,7 +34,7 @@
                               b-button(type='is-primary' label="Next Page"  icon-right='chevron-right'  @click="sendToStore" )
                         div
                           nuxt-link(:to="integratorCompleted?{path:'/result'}:{path:`/integrator`}" v-if='current==5')
-                              b-button(type='is-base' :label="integratorCompleted?'Get Results':'Integrator Assessment'"  icon-right='chevron-right'  @click="lastAnswerToStore" )
+                              b-button(type='is-primary' :label="integratorCompleted?'Get Results':'Integrator Assessment'"  icon-right='chevron-right'  @click="lastAnswerToStore" )
 
 </template>
 <script>

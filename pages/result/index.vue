@@ -3,10 +3,20 @@
   h1.resultTitle Results
   section
     .is-flex.is-justify-content-center.is-primary.subV Visionary
-    b-progress(:value='visionaryTotal', size='is-medium', show-value)
+    b-progress(
+      :value='visionaryTotal',
+      type='is-info',
+      size='is-medium',
+      show-value
+    )
       span {{ visionaryTotal }} %
     .is-flex.is-justify-content-center.subI Integrator
-    b-progress(:value='integratorTotal', size='is-medium', show-value)
+    b-progress(
+      :value='integratorTotal',
+      type='is-info',
+      size='is-medium',
+      show-value
+    )
       span {{ integratorTotal }} %
   section
     .mt-5
@@ -36,6 +46,9 @@
             p.title Integrator
             .content
               p {{ integratorDefinition }}
+//- div
+//-   span visionary {{ visionaryResults.data[0] }}
+//-   span integrator {{ integratorResults.data[0] }}
 </template>
 <script>
 import { mapState } from 'vuex'
@@ -70,7 +83,9 @@ export default {
     }
   },
   async created() {
-    this.calculate()
+    ;(await this.visionaryResults.length) !== 0 &&
+      (await this.integratorResults.length) !== 0 &&
+      this.calculate()
     try {
       await Fetch.sendToResult({
         visionary: this.visionaryTotal,

@@ -165,44 +165,38 @@
   ],
   "user": [
     {
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john@gmail.com",
-      "id": 1
-    },
-    {
-      "firstName": "d",
-      "lastName": "e",
-      "email": "e@gc.com",
-      "id": 2
-    }
-  ],
-  "visionaryScore": [
-    {
-      "one": 0,
-      "two": 0,
-      "three": 20,
-      "four": 0,
-      "five": 0,
-      "userId": 1,
+      "firstName": "efe",
+      "lastName": "fe",
+      "email": "ef@g.com",
       "id": 1
     }
   ],
   "integratorScore": [
     {
-      "one": 1,
+      "one": 0,
       "two": 0,
-      "three": 12,
-      "four": 5,
-      "five": 2,
+      "three": 3,
+      "four": 12,
+      "five": 5,
+      "userId": 1,
+      "id": 1
+    }
+  ],
+  "visionaryScore": [
+    {
+      "one": 2,
+      "two": 7,
+      "three": 8,
+      "four": 3,
+      "five": 0,
       "userId": 1,
       "id": 1
     }
   ],
   "result": [
     {
-      "visionary": 40,
-      "integrator": 47,
+      "visionary": 32,
+      "integrator": 62,
       "userId": 1,
       "id": 1
     }

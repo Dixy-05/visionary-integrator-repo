@@ -67,19 +67,19 @@ div
                   type='is-base',
                   label='Next Page',
                   icon-right='chevron-right',
-                  @click='sendToStore'
+                  @click='sendToStore',
+                  :disabled='notCompleted'
                 )
             div
-              nuxt-link(
-                :to='visionaryCompleted ? { path: "/result" } : { path: `/visionary` }',
-                v-if='current == 5'
+              b-button(
+                v-if='current == 5',
+                type='is-base',
+                :label='visionaryCompleted ? "Get Results" : "Visionary Assessment"',
+                icon-right='chevron-right',
+                @click='lastAnswerToStore',
+                :disabled='notCompleted',
+                :loading='buttonLoading'
               )
-                b-button(
-                  type='is-base',
-                  :label='visionaryCompleted ? "Get Results" : "Visionary Assessment"',
-                  icon-right='chevron-right',
-                  @click='lastAnswerToStore'
-                )
 </template>
 <script>
 import { mapState } from 'vuex'
@@ -96,13 +96,15 @@ export default {
   data() {
     return {
       cards: {
-        one: 3,
-        two: 3,
-        three: 3,
-        four: 3,
+        one: '',
+        two: '',
+        three: '',
+        four: '',
       },
       current: 1,
       stepPage: 0,
+      notCompleted: true,
+      buttonLoading: false,
     }
   },
   async fetch({ store, error, route }) {
@@ -134,6 +136,12 @@ export default {
   methods: {
     getAnswer(number, cardNumber) {
       this.cards[cardNumber] = number
+      this.checkAllAnswers()
+    },
+    checkAllAnswers() {
+      Object.values(this.cards).every((value) => value !== '')
+        ? (this.notCompleted = false)
+        : (this.notCompleted = true)
     },
 
     sendToStore() {
@@ -151,8 +159,9 @@ export default {
       }
       // clear cards answers
       for (let i = 0; i < 4; i++) {
-        this.$data.cards[arr[i]] = 3
+        this.$data.cards[arr[i]] = ''
       }
+      this.notCompleted = true
       this.nextPage()
     },
     async nextPage() {
@@ -188,8 +197,9 @@ export default {
       this.sendToDataBase()
     },
     async sendToDataBase() {
+      this.buttonLoading = true
       // send to Database
-      await Fetch.sendToIntegrator({
+      const response = await Fetch.sendToIntegrator({
         one: this.arrOne.length,
         two: this.arrTwo.length,
         three: this.arrThree.length,
@@ -197,6 +207,13 @@ export default {
         five: this.arrFive.length,
         userId: this.userId.data.id,
       })
+      if (response.status === 201) {
+        this.visionaryCompleted
+          ? this.$router.push({
+              name: 'result',
+            })
+          : this.$router.push({ name: 'visionary' })
+      }
     },
   },
 }
@@ -207,7 +224,7 @@ export default {
   background: hsl(172, 99%, 30%);
 }
 .assessmentTitle {
-  color: #712a96;
+  color: hsl(172, 99%, 30%);
   font-size: 2em;
   font-weight: bold;
 }

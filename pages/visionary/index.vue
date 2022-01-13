@@ -15,7 +15,8 @@ div
               :getAnswer='getAnswer',
               cardNumber='one',
               :statement='statements.data[0].text',
-              :loading='loading'
+              :loading='loading',
+              name='cardOne'
             )
           .column
             card(
@@ -23,7 +24,8 @@ div
               :getAnswer='getAnswer',
               cardNumber='two',
               :statement='statements.data[1].text',
-              :loading='loading'
+              :loading='loading',
+              name='cardTwo'
             )
         .columns
           .column
@@ -32,16 +34,20 @@ div
               :getAnswer='getAnswer',
               cardNumber='three',
               :statement='statements.data[2].text',
-              :loading='loading'
+              :loading='loading',
+              name='cardThree'
             )
+
           .column
             card(
               :key='current',
               :getAnswer='getAnswer',
               cardNumber='four',
               :statement='statements.data[3].text',
-              :loading='loading'
+              :loading='loading',
+              cardName='cardFour'
             )
+
         .columns
           .column.is-9
             section
@@ -66,23 +72,23 @@ div
                   type='is-primary',
                   label='Next Page',
                   icon-right='chevron-right',
-                  @click='sendToStore'
+                  @click='sendToStore',
+                  :disabled='notCompleted'
                 )
             div
-              nuxt-link(
-                :to='integratorCompleted ? { path: "/result" } : { path: `/integrator` }',
-                v-if='current == 5'
+              b-button(
+                v-if='current == 5',
+                type='is-primary',
+                :label='integratorCompleted ? "Get Results" : "Integrator Assessment"',
+                icon-right='chevron-right',
+                @click='lastAnswerToStore',
+                :disabled='notCompleted',
+                :loading='buttonLoading'
               )
-                b-button(
-                  type='is-primary',
-                  :label='integratorCompleted ? "Get Results" : "Integrator Assessment"',
-                  icon-right='chevron-right',
-                  @click='lastAnswerToStore'
-                )
 </template>
 <script>
 import { mapState } from 'vuex'
-import Fetch from '@/server/api.js'
+import Post from '@/server/api.js'
 import Card from '@/components/Card.vue'
 export default {
   name: 'visionaryPage',
@@ -95,14 +101,15 @@ export default {
   data() {
     return {
       cards: {
-        one: 3,
-        two: 3,
-        three: 3,
-        four: 3,
+        one: '',
+        two: '',
+        three: '',
+        four: '',
       },
-      // notCompleted:true,
+      notCompleted: true,
       current: 1,
       stepPage: 0,
+      buttonLoading: false,
     }
   },
   async fetch({ store, error, route }) {
@@ -136,6 +143,12 @@ export default {
   methods: {
     getAnswer(number, cardNumber) {
       this.cards[cardNumber] = number
+      this.checkAllAnswers()
+    },
+    checkAllAnswers() {
+      Object.values(this.cards).every((value) => value !== '')
+        ? (this.notCompleted = false)
+        : (this.notCompleted = true)
     },
 
     sendToStore() {
@@ -153,8 +166,9 @@ export default {
       }
       // clear cards answers
       for (let i = 0; i < 4; i++) {
-        this.$data.cards[arr[i]] = 3
+        this.$data.cards[arr[i]] = ''
       }
+      this.notCompleted = true
       this.nextPage()
     },
     async nextPage() {
@@ -187,11 +201,13 @@ export default {
             })
           )
       }
+
       this.sendToDataBase()
     },
     async sendToDataBase() {
+      this.buttonLoading = true
       // send to Database
-      await Fetch.sendToVisionary({
+      const response = await Post.sendToVisionary({
         one: this.arrOne.length,
         two: this.arrTwo.length,
         three: this.arrThree.length,
@@ -199,6 +215,13 @@ export default {
         five: this.arrFive.length,
         userId: this.userId.data.id,
       })
+      if (response.status === 201) {
+        this.integratorCompleted
+          ? this.$router.push({
+              name: 'result',
+            })
+          : this.$router.push({ name: 'integrator' })
+      }
     },
   },
 }

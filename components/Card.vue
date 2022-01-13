@@ -17,41 +17,23 @@ div
             b-skeleton(:active='loading', width='7em')
       div
         template(v-if='!loading')
-          .buttons.is-flex.is-justify-content-center
-            b-button(
-              type='is-primary',
-              outlined,
-              @click='getAnswer(1, cardNumber)'
-            ) 1
-            b-button(
-              type='is-primary',
-              outlined,
-              @click='getAnswer(2, cardNumber)'
-            ) 2
-            b-button(
-              type='is-primary',
-              outlined,
-              @click='getAnswer(3, cardNumber)'
-            ) 3
-            b-button(
-              type='is-primary',
-              outlined,
-              @click='getAnswer(4, cardNumber)'
-            ) 4
-            b-button(
-              type='is-primary',
-              outlined,
-              @click='getAnswer(5, cardNumber)'
-            ) 5
+          .buttons.is-flex.is-justify-content-center(
+            v-for='(num, index) in numbers'
+          )
+            b-button(type='is-primary', outlined, @click='cardAnswer(num)') {{ num }}
         b-skeleton(:active='loading', height='2em')
 </template>
 
 <script>
 export default {
   name: 'statementsCard',
+  data() {
+    return {
+      numbers: [1, 2, 3, 4, 5],
+    }
+  },
   props: {
-    cardNumber: String,
-    getAnswer: Function,
+    cardAnswer: Function,
     statement: String,
     loading: Boolean,
   },

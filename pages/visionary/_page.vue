@@ -9,43 +9,13 @@ div
           .column.is-flex.is-align-items-center.is-justify-content-end
             b-tag(type='is-info', size='is-medium') #1 rarely describes you and #5 describes you
         .columns
-          .column
+          .column(v-for='(item, index) in chunk')
             card(
-              :key='current',
-              :getAnswer='getAnswer',
-              cardNumber='one',
+              :key='index',
+              :cardAnswer='setCardAnswer',
               :statement='statements.data[0].text',
               :loading='loading',
-              name='cardOne'
-            )
-          .column
-            card(
-              :key='current',
-              :getAnswer='getAnswer',
-              cardNumber='two',
-              :statement='statements.data[1].text',
-              :loading='loading',
-              name='cardTwo'
-            )
-        .columns
-          .column
-            card(
-              :key='current',
-              :getAnswer='getAnswer',
-              cardNumber='three',
-              :statement='statements.data[2].text',
-              :loading='loading',
-              name='cardThree'
-            )
-
-          .column
-            card(
-              :key='current',
-              :getAnswer='getAnswer',
-              cardNumber='four',
-              :statement='statements.data[3].text',
-              :loading='loading',
-              cardName='cardFour'
+              cardName=`card${index}`
             )
 
         .columns
@@ -100,11 +70,11 @@ export default {
   fetchOnServer: false,
   data() {
     return {
-      cards: {
-        one: '',
-        two: '',
-        three: '',
-        four: '',
+      cardsAnswer: {
+        card1: '',
+        cardTwo: '',
+        cardThree: '',
+        cardFour: '',
       },
       notCompleted: true,
       current: 1,
@@ -139,10 +109,11 @@ export default {
     loading: (state) => state.visionary.isLoading,
     // finding out if integrator assessment is completed
     integratorCompleted: (state) => state.visionary.integratorIsCompleted,
+    chunk: (state) => {},
   }),
   methods: {
-    getAnswer(number, cardNumber) {
-      this.cards[cardNumber] = number
+    setCardAnswer(number, cardNumber) {
+      this.cardsAnswer[cardNumber] = number
       this.checkAllAnswers()
     },
     checkAllAnswers() {

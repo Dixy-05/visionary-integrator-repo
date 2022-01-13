@@ -21,6 +21,7 @@
     "bulma-steps-component": "^0.5.3",
     "core-js": "^3.19.3",
     "json-server": "^0.17.0",
+    "lodash": "^4.17.21",
     "nuxt": "^2.15.8",
     "nuxt-buefy": "^0.4.13",
     "vee-validate": "^3.4.14",

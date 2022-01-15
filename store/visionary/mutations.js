@@ -3,8 +3,8 @@ export default {
     SET_NUMBER(state, payload) {
       state[payload.stateProp].push(payload.number)
     },
-    SET_STATEMENT(state, payload) {
-      state.statements=payload.response;
+    SET_STATEMENTS_CHUNKS(state, payload) {
+      state.statementsChunks=payload.response;
       state.isLoading=payload.loading
     },
     SET_IS_LOADING(state, payload) {
@@ -16,6 +16,5 @@ export default {
     SET_RESULTS(state, payload) {
       state.results=payload
     },
-  
   }
   

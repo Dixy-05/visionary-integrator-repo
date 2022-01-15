@@ -8,16 +8,15 @@ div
             h1.assessmentTitle VISIONARY INDICATOR ASSESSMENT
           .column.is-flex.is-align-items-center.is-justify-content-end
             b-tag(type='is-info', size='is-medium') #1 rarely describes you and #5 describes you
-        .columns
-          .column(v-for='(item, index) in chunk')
+        .columns.is-multiline
+          .column.is-half(v-for='(item, index) in chunk')
             card(
-              :key='index',
-              :cardAnswer='setCardAnswer',
-              :statement='statements.data[0].text',
+              :statement='item.text',
+              :key='`card-` + index',
               :loading='loading',
-              cardName=`card${index}`
+              :cardNumber='index',
+              v-model='answers[index]'
             )
-
         .columns
           .column.is-9
             section
@@ -35,7 +34,7 @@ div
           .column.is-flex.is-justify-content-end
             div
               nuxt-link(
-                :to='{ path: `/visionary`, query: { page: current } }',
+                :to='{ path: `/visionary/${current + 1}` }',
                 v-if='current < 5'
               )
                 b-button(
@@ -55,9 +54,13 @@ div
                 :disabled='notCompleted',
                 :loading='buttonLoading'
               )
+      //- span {{ chunk }}
+      //- span {{ random }}
+      span {{ cardsAnswer }}
 </template>
 <script>
 import { mapState } from 'vuex'
+import { filter } from 'lodash'
 import Post from '@/server/api.js'
 import Card from '@/components/Card.vue'
 export default {
@@ -67,18 +70,15 @@ export default {
   },
   layout: 'assessment',
   scrollToTop: true,
+
   fetchOnServer: false,
   data() {
     return {
-      cardsAnswer: {
-        card1: '',
-        cardTwo: '',
-        cardThree: '',
-        cardFour: '',
-      },
-      notCompleted: true,
+      cardsAnswer: {},
+      answers: [],
       current: 1,
       stepPage: 0,
+      notCompleted: true,
       buttonLoading: false,
     }
   },
@@ -86,8 +86,7 @@ export default {
     // store.dispatch('visionary/sendCurrentPage',1);
     try {
       await store.dispatch('visionary/fetchStatements', {
-        perPage: 4,
-        page: +route.query.page || 1,
+        statementsPerPage: 4,
       })
       // console.log(store.state.visionary.isLoading)
     } catch (e) {
@@ -98,32 +97,35 @@ export default {
     }
   },
 
-  computed: mapState({
-    userId: (state) => state.register.user,
-    arrOne: (state) => state.visionary.one,
-    arrTwo: (state) => state.visionary.two,
-    arrThree: (state) => state.visionary.three,
-    arrFour: (state) => state.visionary.four,
-    arrFive: (state) => state.visionary.five,
-    statements: (state) => state.visionary.statements,
-    loading: (state) => state.visionary.isLoading,
-    // finding out if integrator assessment is completed
-    integratorCompleted: (state) => state.visionary.integratorIsCompleted,
-    chunk: (state) => {},
-  }),
-  methods: {
-    setCardAnswer(number, cardNumber) {
-      this.cardsAnswer[cardNumber] = number
-      this.checkAllAnswers()
+  computed: {
+    ...mapState({
+      // random: (state) => state.visionary.random,
+      // userId: (state) => state.register.user,
+      // arrOne: (state) => state.visionary.one,
+      // arrTwo: (state) => state.visionary.two,
+      // arrThree: (state) => state.visionary.three,
+      // arrFour: (state) => state.visionary.four,
+      // arrFive: (state) => state.visionary.five,
+      loading: (state) => state.visionary.isLoading,
+      // finding out if integrator assessment is completed
+      integratorCompleted: (state) => state.visionary.integratorIsCompleted,
+    }),
+    chunk() {
+      return this.$store.state.visionary.statementsChunks[this.current - 1]
     },
+    isAnswersValid() {
+      return filter(this.answers, (a) => !isNaN(+a)).length === 4
+    },
+  },
+  methods: {
     checkAllAnswers() {
-      Object.values(this.cards).every((value) => value !== '')
+      Object.values(this.cardsAnswer).every((value) => value !== '')
         ? (this.notCompleted = false)
         : (this.notCompleted = true)
     },
 
     sendToStore() {
-      const cardsArr = Object.values(this.cards)
+      const cardsArr = Object.values(this.cardsAnswer)
       const arr = ['one', 'two', 'three', 'four', 'five']
       for (let i = 0; i < arr.length; i++) {
         cardsArr
@@ -148,8 +150,7 @@ export default {
       this.$store.dispatch('visionary/isLoading', true)
       try {
         await this.$store.dispatch('visionary/fetchStatements', {
-          perPage: 4,
-          page: this.current,
+          statementsPerPage: 4,
         })
       } catch (err) {
         return { err }
@@ -160,7 +161,7 @@ export default {
       this.current === 5 &&
         this.$store.dispatch('integrator/visionaryIsCompleted', true)
       // send last result to store
-      const cardsArr = Object.values(this.cards)
+      const cardsArr = Object.values(this.cardsAnswer)
       const arr = ['one', 'two', 'three', 'four', 'five']
       for (let i = 0; i < arr.length; i++) {
         cardsArr
@@ -173,7 +174,7 @@ export default {
           )
       }
 
-      this.sendToDataBase()
+      // this.sendToDataBase()
     },
     async sendToDataBase() {
       this.buttonLoading = true

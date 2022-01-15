@@ -17,10 +17,17 @@ div
             b-skeleton(:active='loading', width='7em')
       div
         template(v-if='!loading')
-          .buttons.is-flex.is-justify-content-center(
-            v-for='(num, index) in numbers'
-          )
-            b-button(type='is-primary', outlined, @click='cardAnswer(num)') {{ num }}
+          .buttons.is-flex.is-justify-content-center
+            b-radio-button(
+              v-for='(num, index) in numbers',
+              :name='`card-` + cardNumber',
+              :key='`button-` + cardNumber + `-index-` + index',
+              type='is-primary',
+              :value='value',
+              :native-value='num',
+              @input='$emit("input", num)'
+            ) 
+              span {{ num }}
         b-skeleton(:active='loading', height='2em')
 </template>
 
@@ -33,9 +40,13 @@ export default {
     }
   },
   props: {
-    cardAnswer: Function,
     statement: String,
     loading: Boolean,
+    cardNumber: Number,
+    value: {
+      type: Number,
+      default: -1,
+    },
   },
 }
 </script>

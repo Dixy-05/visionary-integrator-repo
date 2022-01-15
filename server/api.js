@@ -10,8 +10,8 @@ const apiClient = axios.create({
 })
 
 export default {
-  getVisionaryStatements(perPage, page) {
-    return apiClient.get(`/visionaryStatements?_limit=${perPage}&_page=${page}`)
+  getVisionaryStatements() {
+    return apiClient.get(`/visionaryStatements`)
   },
   getIntegratorStatements(perPage, page) {
     return apiClient.get(`/integratorStatements?_limit=${perPage}&_page=${page}`)

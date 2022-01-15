@@ -165,40 +165,32 @@
   ],
   "user": [
     {
-      "firstName": "efe",
-      "lastName": "fe",
-      "email": "ef@g.com",
+      "firstName": "jgb",
+      "lastName": "k",
+      "email": "j@g.om",
       "id": 1
     },
     {
-      "firstName": "hello",
-      "lastName": "world",
-      "email": "hello@gmail.com",
+      "firstName": "dkef",
+      "lastName": "ef",
+      "email": "ef@g.com",
       "id": 2
-    }
-  ],
-  "integratorScore": [
+    },
     {
-      "one": 0,
-      "two": 0,
-      "three": 3,
-      "four": 12,
-      "five": 5,
-      "userId": 1,
-      "id": 1
-    }
-  ],
-  "visionaryScore": [
+      "firstName": "dfef",
+      "lastName": "fe",
+      "email": "ef@g.com",
+      "id": 3
+    },
     {
-      "one": 2,
-      "two": 7,
-      "three": 8,
-      "four": 3,
-      "five": 0,
-      "userId": 1,
-      "id": 1
+      "firstName": "je",
+      "lastName": "euh",
+      "email": "dh@g.coinm",
+      "id": 4
     }
   ],
+  "integratorScore": [],
+  "visionaryScore": [],
   "result": [
     {
       "visionary": 32,

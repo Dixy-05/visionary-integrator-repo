@@ -5,9 +5,9 @@ export default () => ({
    three:[],
    four:[],
    five:[],
-   statements:[],
-   currentPage:1,
+   statementsChunks:[],                           
    isLoading:false,
    integratorIsCompleted:false,
-   results:{}
+   results:{},
+   random:"some weird data"
   })

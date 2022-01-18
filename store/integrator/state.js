@@ -2,6 +2,6 @@
 export default () => ({
     statementsChunks:[],
     visionaryIsCompleted:false,
-    results:{},
-    allAnswers:[]
+    allAnswers:[],
+    results:[],
    })

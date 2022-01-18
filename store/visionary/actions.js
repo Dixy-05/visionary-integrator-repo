@@ -8,7 +8,6 @@ export default {
   async fetchStatements({ commit }, payload) {
     const response = await Fetch.getVisionaryStatements()
     const chunks=chunk(response.data,payload.statementsPerPage)
-    console.log('actions',chunks)
     return commit('SET_STATEMENTS_CHUNKS',{response:chunks,loading:false})
   },
   isLoading({ commit }, payload) {
@@ -20,6 +19,9 @@ export default {
 async fetchResults({commit},payload){
   const response= await Fetch.getVisionaryResults(payload)
  return commit('SET_RESULTS',response)
+},
+sendAnswers({commit},payload){
+  return commit('SET_ANSWERS',payload)
 }
 
 } 

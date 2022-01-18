@@ -13,8 +13,8 @@ export default {
   getVisionaryStatements() {
     return apiClient.get(`/visionaryStatements`)
   },
-  getIntegratorStatements(perPage, page) {
-    return apiClient.get(`/integratorStatements?_limit=${perPage}&_page=${page}`)
+  getIntegratorStatements() {
+    return apiClient.get(`/integratorStatements`)
   },
   registerUser(payload) {
     return apiClient.post('/user',payload)

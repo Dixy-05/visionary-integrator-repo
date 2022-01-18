@@ -5,7 +5,9 @@ div
       template(v-if='!loading')
         span {{ statement }}
       b-skeleton(:active='loading', :count='2')
-    hr.divider(type='is-danger')
+    hr.divider(
+      :style='visionary ? "background:#00d1b2;" : "background:#9f46cf;"'
+    )
     .content
       section.pl-5.pr-5
         .is-flex.is-justify-content-space-between
@@ -22,7 +24,7 @@ div
               v-for='(num, index) in numbers',
               :name='`card-` + cardNumber',
               :key='`button-` + cardNumber + `-index-` + index',
-              type='is-primary',
+              :type='visionary ? `is-primary` : `is-success`',
               :value='value',
               :native-value='num',
               @input='$emit("input", num)'
@@ -43,6 +45,7 @@ export default {
     statement: String,
     loading: Boolean,
     cardNumber: Number,
+    visionary: Boolean,
     value: {
       type: Number,
       default: -1,
@@ -59,14 +62,11 @@ export default {
   font-size: 1.2em;
 }
 .divider {
-  background: hsl(171, 100%, 41%);
+  background: #00d1b2;
   box-shadow: 2px 2px 8px;
 }
 .main {
   box-shadow: 1px 1px 7px;
   padding: 1em;
 }
-/* .number {
-  font-size: 1em;
-} */
 </style>

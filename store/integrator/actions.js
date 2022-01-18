@@ -1,12 +1,15 @@
 // integrator actions
+
+import { chunk } from 'lodash'
 import Fetch from '@/server/api.js'
 export default {
    sendNumber({ commit }, payload) {
     return commit('SET_NUMBER',payload)
   },
   async fetchStatements({ commit }, payload) {
-    const res = await Fetch.getIntegratorStatements(payload.perPage,payload.page)
-      return commit('SET_STATEMENT',{response:res,loading:false})
+    const response = await Fetch.getIntegratorStatements()
+    const chunks=chunk(response.data,payload.statementsPerPage)
+    return commit('SET_STATEMENTS_CHUNKS',{response:chunks,loading:false})
   },
   isLoading({ commit }, payload) {
    return commit('SET_IS_LOADING',payload)
@@ -17,5 +20,9 @@ export default {
  async fetchResults({commit},payload){
     const response= await Fetch.getIntegratorResults(payload)
    return commit('SET_RESULTS',response)
- }
+ },
+ sendAnswers({commit},payload){
+  return commit('SET_ANSWERS',payload)
+}
+
 }

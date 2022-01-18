@@ -5,7 +5,7 @@ div
       .column
         .columns
           .column.is-two-thirds.is-three-fifths-tablet
-            h1.assessmentTitle VISIONARY INDICATOR ASSESSMENT
+            h1.assessmentTitle INTEGRATOR INDICATOR ASSESSMENT
           .column.is-flex.is-align-items-center.is-justify-content-end
             b-tag(type='is-info', size='is-medium') #1 rarely describes you and #5 describes you
         .columns.is-multiline
@@ -15,8 +15,7 @@ div
               :key='`card-` + index',
               :loading='isLoading',
               :cardNumber='index',
-              v-model='answers[index]',
-              :visionary='true'
+              v-model='answers[index]'
             )
         .columns
           .column.is-9
@@ -24,7 +23,8 @@ div
               b-steps(
                 size='is-medium',
                 :has-navigation='false',
-                v-model='stepPage'
+                v-model='stepPage',
+                type='is-success'
               )
                 b-step-item(icon='numeric-1', :clickable='false')
                 b-step-item(icon='numeric-2', :clickable='false')
@@ -35,11 +35,11 @@ div
           .column.is-flex.is-justify-content-end
             div
               nuxt-link(
-                :to='isAnswersValid ? `/visionary/${current + 1}` : ``',
+                :to='isAnswersValid ? `/integrator/${current + 1}` : ``',
                 v-if='current < 5'
               )
                 b-button(
-                  type='is-primary',
+                  type='is-base',
                   label='Next Page',
                   icon-right='chevron-right',
                   @click='storeAnswers()',
@@ -48,8 +48,8 @@ div
             div
               b-button(
                 v-if='current == 5',
-                type='is-primary',
-                :label='integratorCompleted ? "Get Results" : "Integrator Assessment"',
+                type='is-base',
+                :label='visionaryCompleted ? "Get Results" : "Visionary Assessment"',
                 icon-right='chevron-right',
                 @click='handleLastAnswer',
                 :disabled='!isAnswersValid',
@@ -64,7 +64,7 @@ import { filter } from 'lodash'
 import Post from '@/server/api.js'
 import Card from '@/components/Card.vue'
 export default {
-  name: 'visionaryPage',
+  name: 'integratorPage',
   components: {
     Card,
   },
@@ -85,7 +85,7 @@ export default {
   async fetch({ store, error, route }) {
     console.log(+route.params.page)
     try {
-      await store.dispatch('visionary/fetchStatements', {
+      await store.dispatch('integrator/fetchStatements', {
         statementsPerPage: 4,
       })
     } catch (e) {
@@ -99,14 +99,12 @@ export default {
   computed: {
     ...mapState({
       userId: (state) => state.register.user,
-      allAnswers: (state) => state.visionary.allAnswers,
-      // loading: (state) => state.visionary.isLoading,
-      // finding out if integrator assessment is completed
-      integratorCompleted: (state) => state.visionary.integratorIsCompleted,
+      allAnswers: (state) => state.integrator.allAnswers,
+      visionaryCompleted: (state) => state.integrator.visionaryIsCompleted,
     }),
 
     chunk() {
-      return this.$store.state.visionary.statementsChunks[this.current - 1]
+      return this.$store.state.integrator.statementsChunks[this.current - 1]
     },
 
     isAnswersValid() {
@@ -115,7 +113,7 @@ export default {
   },
   methods: {
     storeAnswers() {
-      this.$store.dispatch('visionary/sendAnswers', {
+      this.$store.dispatch('integrator/sendAnswers', {
         index: this.current - 1,
         answers: this.answers,
       })
@@ -126,9 +124,9 @@ export default {
     handleLastAnswer() {
       // sending completion to integrator state
       this.current === 5 &&
-        this.$store.dispatch('integrator/visionaryIsCompleted', true)
+        this.$store.dispatch('visionary/integratorIsCompleted', true)
       // send last answers
-      this.$store.dispatch('visionary/sendAnswers', {
+      this.$store.dispatch('integrator/sendAnswers', {
         index: this.current - 1,
         answers: this.answers,
       })
@@ -137,19 +135,16 @@ export default {
     async sendToDataBase() {
       this.buttonLoading = true
       // send to Database
-      const response = await Post.sendToVisionary({
+      const response = await Post.sendToIntegrator({
         answers: this.allAnswers,
         userId: this.userId.data.id,
       })
       if (response.status === 201) {
-        this.integratorCompleted
+        this.visionaryCompleted
           ? this.$router.push({
               name: 'result',
             })
-          : this.$router.push({
-              name: 'integrator-page',
-              params: { page: '1' },
-            })
+          : this.$router.push({ name: 'visionary-page', params: { page: '1' } })
       }
     },
   },
@@ -161,7 +156,7 @@ export default {
   background: hsl(172, 99%, 30%);
 }
 .assessmentTitle {
-  color: #712a96;
+  color: hsl(172, 99%, 30%);
   font-size: 2em;
   font-weight: bold;
 }

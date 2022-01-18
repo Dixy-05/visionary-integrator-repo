@@ -84,7 +84,7 @@
                   @click='checkForm'
                 ) Visionary Assessment
               h3.or or
-              nuxt-link(:to='registered ? "/integrator" : "/"')
+              nuxt-link(:to='registered ? "/integrator/1" : "/"')
                 b-button.fbutton(
                   type='is-AppGreen  ml-3',
                   expanded,

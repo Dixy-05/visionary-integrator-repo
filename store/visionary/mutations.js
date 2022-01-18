@@ -16,5 +16,8 @@ export default {
     SET_RESULTS(state, payload) {
       state.results=payload
     },
+    SET_ANSWERS(state,payload){
+      state.allAnswers[payload.index]=payload.answers
+    }
   }
   

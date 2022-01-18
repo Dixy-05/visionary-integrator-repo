@@ -67,8 +67,8 @@ export default {
     }
   },
   computed: mapState({
-    visionaryResults: (state) => state.visionary.results,
-    integratorResults: (state) => state.integrator.results,
+    visionaryResults: (state) => state.visionary.results.data[0].answers,
+    integratorResults: (state) => state.integrator.results.data[0].answers,
   }),
   async fetch({ store, error }) {
     const userId = await store.state.register.user.data.id
@@ -83,9 +83,7 @@ export default {
     }
   },
   async created() {
-    ;(await this.visionaryResults.length) !== 0 &&
-      (await this.integratorResults.length) !== 0 &&
-      this.calculate()
+    this.calculate()
     try {
       await Fetch.sendToResult({
         visionary: this.visionaryTotal,
@@ -98,16 +96,22 @@ export default {
   },
   methods: {
     calculate() {
-      const tv = []
-      const ti = []
-      for (let i = 0; i < 4; i++) {
-        tv.push(Object.values(this.visionaryResults.data[0])[i + 1] * [i + 1])
+      const vr = this.visionaryResults.reduce((mainArr, arr) =>
+        mainArr.concat(arr)
+      )
+      const vi = this.integratorResults.reduce((mainArr, arr) =>
+        mainArr.concat(arr)
+      )
+      const visionaryTotal = []
+      for (let i = 0; i < 5; i++) {
+        visionaryTotal.push(vr.filter((num) => num === i + 1).length * (i + 1))
       }
-      for (let i = 0; i < 4; i++) {
-        ti.push(Object.values(this.integratorResults.data[0])[i + 1] * [i + 1])
+      const integratorTotal = []
+      for (let i = 0; i < 5; i++) {
+        integratorTotal.push(vi.filter((num) => num === i + 1).length * (i + 1))
       }
-      this.visionaryTotal = tv.reduce((total, num) => total + num)
-      this.integratorTotal = ti.reduce((total, num) => total + num)
+      this.visionaryTotal = visionaryTotal.reduce((total, num) => total + num)
+      this.integratorTotal = integratorTotal.reduce((total, num) => total + num)
     },
   },
 }

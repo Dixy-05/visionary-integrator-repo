@@ -83,7 +83,6 @@ export default {
     }
   },
   async fetch({ store, error, route }) {
-    console.log(+route.params.page)
     try {
       await store.dispatch('visionary/fetchStatements', {
         statementsPerPage: 4,
@@ -100,7 +99,6 @@ export default {
     ...mapState({
       userId: (state) => state.register.user,
       allAnswers: (state) => state.visionary.allAnswers,
-      // loading: (state) => state.visionary.isLoading,
       // finding out if integrator assessment is completed
       integratorCompleted: (state) => state.visionary.integratorIsCompleted,
     }),
@@ -119,7 +117,6 @@ export default {
         index: this.current - 1,
         answers: this.answers,
       })
-      // this.$store.dispatch('visionary/isLoading', true)
       this.isLoading = true
     },
 

@@ -19,35 +19,45 @@ div
               :visionary='true'
             )
         .columns
-          .column.is-9
+          .column.is-8
             section
               b-steps(
                 size='is-medium',
                 :has-navigation='false',
                 v-model='stepPage'
               )
-                b-step-item(icon='numeric-1', :clickable='false')
-                b-step-item(icon='numeric-2', :clickable='false')
-                b-step-item(icon='numeric-3', :clickable='false')
-                b-step-item(icon='numeric-4', :clickable='false')
-                b-step-item(icon='numeric-5', :clickable='false')
+                b-step-item(
+                  v-for='(step, index) in chunks',
+                  :icon='`numeric-${index + 1}`',
+                  :clickable='false'
+                )
 
           .column.is-flex.is-justify-content-end
             div
               nuxt-link(
+                :to='`/visionary/${current - 1}`',
+                v-if='current <= chunks.length && current !== 1'
+              )
+                b-button.mr-1(
+                  type='is-primary',
+                  label='Prev',
+                  icon-left='chevron-left',
+                  @click='storeAnswers()'
+                )
+              nuxt-link(
                 :to='isAnswersValid ? `/visionary/${current + 1}` : ``',
-                v-if='current < 5'
+                v-if='current < chunks.length'
               )
                 b-button(
                   type='is-primary',
-                  label='Next Page',
+                  label='Next',
                   icon-right='chevron-right',
                   @click='storeAnswers()',
                   :disabled='!isAnswersValid'
                 )
             div
               b-button(
-                v-if='current == 5',
+                v-if='current == chunks.length',
                 type='is-primary',
                 :label='integratorCompleted ? "Get Results" : "Integrator Assessment"',
                 icon-right='chevron-right',
@@ -57,6 +67,7 @@ div
               )
       span {{ allAnswers }}
       span {{ current }}
+      span {{ chunks.length }}
 </template>
 <script>
 import { mapState } from 'vuex'
@@ -76,8 +87,6 @@ export default {
     return {
       cardsAnswer: {},
       answers: [],
-      current: +this.$route.params.page || 1,
-      stepPage: +this.$route.params.page - 1,
       buttonLoading: false,
       isLoading: false,
     }
@@ -99,12 +108,17 @@ export default {
     ...mapState({
       userId: (state) => state.register.user,
       allAnswers: (state) => state.visionary.allAnswers,
-      // finding out if integrator assessment is completed
-      integratorCompleted: (state) => state.visionary.integratorIsCompleted,
+      integratorCompleted: (state) => state.visionary.integratorIsCompleted, // finding out if integrator assessment is completed
+      chunks: (state) => state.visionary.statementsChunks,
     }),
-
+    current() {
+      return +this.$route.params.page || 1
+    },
+    stepPage() {
+      return +this.$route.params.page - 1
+    },
     chunk() {
-      return this.$store.state.visionary.statementsChunks[this.current - 1]
+      return this.chunks[this.current - 1]
     },
 
     isAnswersValid() {
@@ -113,6 +127,11 @@ export default {
   },
   methods: {
     storeAnswers() {
+      console.log('typeCurrent:', typeof this.current)
+      console.log('combination:', this.allAnswers[this.random])
+      // if (this.storedAnswers.length !== 0) {
+      //   this.answers = this.storedAnswers
+      // }
       this.$store.dispatch('visionary/sendAnswers', {
         index: this.current - 1,
         answers: this.answers,
@@ -121,8 +140,7 @@ export default {
     },
 
     handleLastAnswer() {
-      // sending completion to integrator state
-      this.current === 5 &&
+      this.current === 5 && // sending completion to integrator state
         this.$store.dispatch('integrator/visionaryIsCompleted', true)
       // send last answers
       this.$store.dispatch('visionary/sendAnswers', {

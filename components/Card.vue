@@ -25,7 +25,6 @@ div
               :name='`card-` + cardNumber',
               :key='`button-` + cardNumber + `-index-` + index',
               :type='visionary ? `is-primary` : `is-success`',
-              :value='value',
               :native-value='num',
               @input='$emit("input", num)'
             ) 

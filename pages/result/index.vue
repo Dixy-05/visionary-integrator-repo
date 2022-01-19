@@ -6,7 +6,7 @@
     b-progress(
       :value='visionaryTotal',
       type='is-info',
-      size='is-medium',
+      size='is-large',
       show-value
     )
       span {{ visionaryTotal }} %
@@ -14,7 +14,7 @@
     b-progress(
       :value='integratorTotal',
       type='is-info',
-      size='is-medium',
+      size='is-large',
       show-value
     )
       span {{ integratorTotal }} %
@@ -46,9 +46,6 @@
             p.title Integrator
             .content
               p {{ integratorDefinition }}
-//- div
-//-   span visionary {{ visionaryResults.data[0] }}
-//-   span integrator {{ integratorResults.data[0] }}
 </template>
 <script>
 import { mapState } from 'vuex'

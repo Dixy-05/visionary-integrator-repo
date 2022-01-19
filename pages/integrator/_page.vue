@@ -26,11 +26,11 @@ div
                 v-model='stepPage',
                 type='is-success'
               )
-                b-step-item(icon='numeric-1', :clickable='false')
-                b-step-item(icon='numeric-2', :clickable='false')
-                b-step-item(icon='numeric-3', :clickable='false')
-                b-step-item(icon='numeric-4', :clickable='false')
-                b-step-item(icon='numeric-5', :clickable='false')
+                b-step-item(
+                  v-for='(step, index) in chunks',
+                  :icon='`numeric-${index + 1}`',
+                  :clickable='false'
+                )
 
           .column.is-flex.is-justify-content-end
             div
@@ -101,10 +101,11 @@ export default {
       userId: (state) => state.register.user,
       allAnswers: (state) => state.integrator.allAnswers,
       visionaryCompleted: (state) => state.integrator.visionaryIsCompleted,
+      chunks: (state) => state.visionary.statementsChunks,
     }),
 
     chunk() {
-      return this.$store.state.integrator.statementsChunks[this.current - 1]
+      return this.chunks[this.current - 1]
     },
 
     isAnswersValid() {

@@ -164,11 +164,203 @@
     }
   ],
   "user": [
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john@g.com",
+      "id": 1
+    },
+    {
+      "firstName": "hello",
+      "lastName": "world",
+      "email": "hello@g.com",
+      "id": 2
+    },
+    {
+      "firstName": "hi",
+      "lastName": "again",
+      "email": "hi@g.omc",
+      "id": 3
+    },
+    {
+      "firstName": "fe",
+      "lastName": "fe",
+      "email": "ef@gcl.om",
+      "id": 4
+    },
+    {
+      "firstName": "inter",
+      "lastName": "national",
+      "email": "inter@g.com",
+      "id": 5
+    },
+    {
+      "firstName": "he",
+      "lastName": "ef",
+      "email": "keh@g.com",
+      "id": 6
+    }
   ],
   "integratorScore": [
+    {
+      "answers": [
+        [
+          2,
+          2,
+          5,
+          3
+        ],
+        [
+          2,
+          2,
+          4,
+          2
+        ],
+        [
+          5,
+          5,
+          5,
+          4
+        ],
+        [
+          2,
+          4,
+          4,
+          4
+        ],
+        [
+          4,
+          4,
+          4,
+          4
+        ]
+      ],
+      "userId": 1,
+      "id": 1
+    },
+    {
+      "answers": [
+        [
+          3,
+          2,
+          4,
+          4
+        ],
+        [
+          2,
+          2,
+          3,
+          2
+        ],
+        [
+          4,
+          4,
+          3,
+          4
+        ],
+        [
+          5,
+          5,
+          5,
+          5
+        ],
+        [
+          5,
+          2,
+          2,
+          2
+        ]
+      ],
+      "userId": 4,
+      "id": 2
+    }
   ],
   "visionaryScore": [
+    {
+      "answers": [
+        [
+          1,
+          4,
+          3,
+          1
+        ],
+        [
+          2,
+          2,
+          4,
+          5
+        ],
+        [
+          1,
+          5,
+          2,
+          5
+        ],
+        [
+          5,
+          5,
+          5,
+          5
+        ],
+        [
+          4,
+          4,
+          4,
+          4
+        ]
+      ],
+      "userId": 1,
+      "id": 1
+    },
+    {
+      "answers": [
+        [
+          2,
+          2,
+          2,
+          2
+        ],
+        [
+          1,
+          4,
+          5,
+          3
+        ],
+        [
+          1,
+          1,
+          4,
+          3
+        ],
+        [
+          5,
+          3,
+          4,
+          5
+        ],
+        [
+          5,
+          4,
+          5,
+          4
+        ]
+      ],
+      "userId": 4,
+      "id": 2
+    }
   ],
   "result": [
- ]
+    {
+      "visionary": 71,
+      "integrator": 71,
+      "userId": 1,
+      "id": 1
+    },
+    {
+      "visionary": 65,
+      "integrator": 68,
+      "userId": 4,
+      "id": 2
+    }
+  ]
 }

@@ -15,7 +15,8 @@ div
               :key='`card-` + index',
               :loading='isLoading',
               :cardNumber='index',
-              v-model='answers[index]'
+              v-model='answers[index]',
+              :prevDefault='answers[index]'
             )
         .columns
           .column.is-9
@@ -35,19 +36,29 @@ div
           .column.is-flex.is-justify-content-end
             div
               nuxt-link(
+                :to='`/integrator/${current - 1}`',
+                v-if='current <= chunks.length && current !== 1'
+              )
+                b-button.mr-1(
+                  type='is-base',
+                  :label='current < chunks.length ? `Prev` : ``',
+                  icon-left='chevron-left'
+                )
+
+              nuxt-link(
                 :to='isAnswersValid ? `/integrator/${current + 1}` : ``',
-                v-if='current < 5'
+                v-if='current < chunks.length'
               )
                 b-button(
                   type='is-base',
-                  label='Next Page',
+                  label='Next ',
                   icon-right='chevron-right',
                   @click='storeAnswers()',
                   :disabled='!isAnswersValid'
                 )
             div
               b-button(
-                v-if='current == 5',
+                v-if='current == chunks.length',
                 type='is-base',
                 :label='visionaryCompleted ? "Get Results" : "Visionary Assessment"',
                 icon-right='chevron-right',
@@ -55,12 +66,10 @@ div
                 :disabled='!isAnswersValid',
                 :loading='buttonLoading'
               )
-      span {{ allAnswers }}
-      span {{ current }}
 </template>
 <script>
 import { mapState } from 'vuex'
-import { filter } from 'lodash'
+import { filter, cloneDeep } from 'lodash'
 import Post from '@/server/api.js'
 import Card from '@/components/Card.vue'
 export default {
@@ -76,14 +85,11 @@ export default {
     return {
       cardsAnswer: {},
       answers: [],
-      current: +this.$route.params.page || 1,
-      stepPage: +this.$route.params.page - 1,
       buttonLoading: false,
       isLoading: false,
     }
   },
   async fetch({ store, error, route }) {
-    console.log(+route.params.page)
     try {
       await store.dispatch('integrator/fetchStatements', {
         statementsPerPage: 4,
@@ -95,14 +101,26 @@ export default {
       })
     }
   },
+  created() {
+    const clone = cloneDeep(this.allAnswers[this.current - 1])
+    if (clone) {
+      this.answers = clone
+    }
+  },
 
   computed: {
     ...mapState({
       userId: (state) => state.register.user,
       allAnswers: (state) => state.integrator.allAnswers,
       visionaryCompleted: (state) => state.integrator.visionaryIsCompleted,
-      chunks: (state) => state.visionary.statementsChunks,
+      chunks: (state) => state.integrator.statementsChunks,
     }),
+    current() {
+      return +this.$route.params.page || 1
+    },
+    stepPage() {
+      return +this.$route.params.page - 1
+    },
 
     chunk() {
       return this.chunks[this.current - 1]
@@ -124,7 +142,7 @@ export default {
 
     handleLastAnswer() {
       // sending completion to integrator state
-      this.current === 5 &&
+      this.current === this.chunks.length &&
         this.$store.dispatch('visionary/integratorIsCompleted', true)
       // send last answers
       this.$store.dispatch('integrator/sendAnswers', {

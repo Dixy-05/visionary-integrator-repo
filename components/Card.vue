@@ -26,7 +26,8 @@ div
               :key='`button-` + cardNumber + `-index-` + index',
               :type='visionary ? `is-primary` : `is-success`',
               :native-value='num',
-              @input='$emit("input", num)'
+              @input='$emit("input", num)',
+              v-model='value'
             ) 
               span {{ num }}
         b-skeleton(:active='loading', height='2em')
@@ -38,6 +39,7 @@ export default {
   data() {
     return {
       numbers: [1, 2, 3, 4, 5],
+      value: this.prevDefault,
     }
   },
   props: {
@@ -45,10 +47,7 @@ export default {
     loading: Boolean,
     cardNumber: Number,
     visionary: Boolean,
-    value: {
-      type: Number,
-      default: -1,
-    },
+    prevDefault: Number,
   },
 }
 </script>

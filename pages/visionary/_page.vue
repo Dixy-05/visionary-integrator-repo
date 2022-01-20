@@ -16,7 +16,8 @@ div
               :loading='isLoading',
               :cardNumber='index',
               v-model='answers[index]',
-              :visionary='true'
+              :visionary='true',
+              :prevDefault='answers[index]'
             )
         .columns
           .column.is-8
@@ -40,9 +41,8 @@ div
               )
                 b-button.mr-1(
                   type='is-primary',
-                  label='Prev',
-                  icon-left='chevron-left',
-                  @click='storeAnswers()'
+                  :label='current < chunks.length ? `Prev` : ``',
+                  icon-left='chevron-left'
                 )
               nuxt-link(
                 :to='isAnswersValid ? `/visionary/${current + 1}` : ``',
@@ -65,13 +65,10 @@ div
                 :disabled='!isAnswersValid',
                 :loading='buttonLoading'
               )
-      span {{ allAnswers }}
-      span {{ current }}
-      span {{ chunks.length }}
 </template>
 <script>
 import { mapState } from 'vuex'
-import { filter } from 'lodash'
+import { filter, cloneDeep } from 'lodash'
 import Post from '@/server/api.js'
 import Card from '@/components/Card.vue'
 export default {
@@ -103,7 +100,12 @@ export default {
       })
     }
   },
-
+  created() {
+    const clone = cloneDeep(this.allAnswers[this.current - 1])
+    if (clone) {
+      this.answers = clone
+    }
+  },
   computed: {
     ...mapState({
       userId: (state) => state.register.user,
@@ -120,18 +122,12 @@ export default {
     chunk() {
       return this.chunks[this.current - 1]
     },
-
     isAnswersValid() {
       return filter(this.answers, (a) => !isNaN(+a)).length === 4
     },
   },
   methods: {
     storeAnswers() {
-      console.log('typeCurrent:', typeof this.current)
-      console.log('combination:', this.allAnswers[this.random])
-      // if (this.storedAnswers.length !== 0) {
-      //   this.answers = this.storedAnswers
-      // }
       this.$store.dispatch('visionary/sendAnswers', {
         index: this.current - 1,
         answers: this.answers,
@@ -140,7 +136,7 @@ export default {
     },
 
     handleLastAnswer() {
-      this.current === 5 && // sending completion to integrator state
+      this.current === this.chunks.length && // sending completion to integrator state
         this.$store.dispatch('integrator/visionaryIsCompleted', true)
       // send last answers
       this.$store.dispatch('visionary/sendAnswers', {

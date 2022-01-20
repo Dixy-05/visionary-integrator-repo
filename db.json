@@ -199,6 +199,60 @@
       "lastName": "ef",
       "email": "keh@g.com",
       "id": 6
+    },
+    {
+      "firstName": "jason",
+      "lastName": "file",
+      "email": "jason@g.com",
+      "id": 7
+    },
+    {
+      "firstName": "hello",
+      "lastName": "world",
+      "email": "hello@g.com",
+      "id": 8
+    },
+    {
+      "firstName": "in",
+      "lastName": "the",
+      "email": "in@g.com",
+      "id": 9
+    },
+    {
+      "firstName": "new",
+      "lastName": "name",
+      "email": "new@g.com",
+      "id": 10
+    },
+    {
+      "firstName": "again",
+      "lastName": "again",
+      "email": "again@g.com",
+      "id": 11
+    },
+    {
+      "firstName": "ekef",
+      "lastName": "fef",
+      "email": "efe@g.com",
+      "id": 12
+    },
+    {
+      "firstName": "ejie",
+      "lastName": "ef",
+      "email": "ef@g.com",
+      "id": 13
+    },
+    {
+      "firstName": "re",
+      "lastName": "fef",
+      "email": "ef3r@g.come",
+      "id": 14
+    },
+    {
+      "firstName": "e",
+      "lastName": "e",
+      "email": "e@g.com",
+      "id": 15
     }
   ],
   "integratorScore": [
@@ -273,6 +327,42 @@
       ],
       "userId": 4,
       "id": 2
+    },
+    {
+      "answers": [
+        [
+          3,
+          3,
+          4,
+          3
+        ],
+        [
+          3,
+          3,
+          5,
+          3
+        ],
+        [
+          4,
+          3,
+          4,
+          2
+        ],
+        [
+          3,
+          4,
+          5,
+          4
+        ],
+        [
+          2,
+          3,
+          3,
+          5
+        ]
+      ],
+      "userId": 10,
+      "id": 3
     }
   ],
   "visionaryScore": [
@@ -347,6 +437,42 @@
       ],
       "userId": 4,
       "id": 2
+    },
+    {
+      "answers": [
+        [
+          2,
+          2,
+          3,
+          2
+        ],
+        [
+          4,
+          2,
+          4,
+          3
+        ],
+        [
+          3,
+          2,
+          5,
+          2
+        ],
+        [
+          2,
+          2,
+          4,
+          3
+        ],
+        [
+          4,
+          3,
+          5,
+          2
+        ]
+      ],
+      "userId": 10,
+      "id": 3
     }
   ],
   "result": [
@@ -361,6 +487,12 @@
       "integrator": 68,
       "userId": 4,
       "id": 2
+    },
+    {
+      "visionary": 59,
+      "integrator": 69,
+      "userId": 10,
+      "id": 3
     }
   ]
 }

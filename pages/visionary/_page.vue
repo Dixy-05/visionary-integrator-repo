@@ -42,7 +42,8 @@ div
                 b-button.mr-1(
                   type='is-primary',
                   :label='current < chunks.length ? `Prev` : ``',
-                  icon-left='chevron-left'
+                  icon-left='chevron-left',
+                  @click='storeAnswers()'
                 )
               nuxt-link(
                 :to='isAnswersValid ? `/visionary/${current + 1}` : ``',
@@ -65,6 +66,8 @@ div
                 :disabled='!isAnswersValid',
                 :loading='buttonLoading'
               )
+      span allAnswers: {{ allAnswers }}
+      span current: {{ answers }}
 </template>
 <script>
 import { mapState } from 'vuex'

@@ -19,7 +19,7 @@ div
               :prevDefault='answers[index]'
             )
         .columns
-          .column.is-9
+          .column.is-8
             section
               b-steps(
                 size='is-medium',
@@ -42,7 +42,8 @@ div
                 b-button.mr-1(
                   type='is-base',
                   :label='current < chunks.length ? `Prev` : ``',
-                  icon-left='chevron-left'
+                  icon-left='chevron-left',
+                  @click='storeAnswers()'
                 )
 
               nuxt-link(

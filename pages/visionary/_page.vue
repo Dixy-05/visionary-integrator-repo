@@ -66,8 +66,6 @@ div
                 :disabled='!isAnswersValid',
                 :loading='buttonLoading'
               )
-      span allAnswers: {{ allAnswers }}
-      span current: {{ answers }}
 </template>
 <script>
 import { mapState } from 'vuex'

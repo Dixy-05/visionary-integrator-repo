@@ -72,6 +72,7 @@ import { mapState } from 'vuex'
 import { filter, cloneDeep } from 'lodash'
 import Post from '@/server/api.js'
 import Card from '@/components/Card.vue'
+
 export default {
   name: 'visionaryPage',
   components: {

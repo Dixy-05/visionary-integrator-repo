@@ -13,5 +13,9 @@ export default {
     SET_RESULTS(state, payload) {
       state.results=payload
     },
+    RESET_STATE(state){
+      state.integratorIsCompleted=false
+      state.allAnswers=[]
+    }
   }
   

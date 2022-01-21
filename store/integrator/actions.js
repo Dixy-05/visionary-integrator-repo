@@ -18,5 +18,8 @@ export default {
      const response= await Fetch.getIntegratorResults(payload)
     return commit('SET_RESULTS',response)
   },
-
+  resetState({commit}){
+    return commit('RESET_STATE')
+  }
+  
 }

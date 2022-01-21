@@ -131,6 +131,12 @@ export default {
       this.registered = true
     },
   },
+  mounted() {
+    this.$store.dispatch('register/resetState')
+    this.$store.dispatch('visionary/resetState')
+    this.$store.dispatch('integrator/resetState')
+    localStorage.removeItem('vuex')
+  },
   computed: mapState({
     user: (state) => state.register.user,
   }),

@@ -68,7 +68,9 @@ export default {
     integratorResults: (state) => state.integrator.results.data[0].answers,
   }),
   async fetch({ store, error }) {
-    const userId = await store.state.register.user.data.id
+    console.log('result:', store.state.register)
+    const userId = store.state.register.user.data.id
+    // const userId = 5
     try {
       await store.dispatch('integrator/fetchResults', userId)
       await store.dispatch('visionary/fetchResults', userId)

@@ -5,4 +5,8 @@ export default {
     const response=await Fetch.registerUser(payload)
     return commit('SET_USER',response)
   },
+  resetState({commit}){
+    return commit('RESET_STATE')
+  }
+  
 } 

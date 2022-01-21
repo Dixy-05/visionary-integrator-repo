@@ -17,4 +17,7 @@ async fetchResults({commit},payload){
   const response= await Fetch.getVisionaryResults(payload)
  return commit('SET_RESULTS',response)
 },
+resetState({commit}){
+  return commit('RESET_STATE')
+}
 } 

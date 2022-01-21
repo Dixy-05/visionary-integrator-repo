@@ -77,15 +77,18 @@
           .tile.is-parent
             article.tile.is-child.notification.is-dark.is-light
               p.title It will only take you a few minutes !!
-              //- nuxt-link(:to='registered ? "/visionary/1" : "/"')
-              nuxt-link(to='/visionary/1')
-                b-button.fbutton(type='is-primary  mr-3', expanded) Visionary Assessment
+              nuxt-link(:to='registered ? "/visionary/1" : "/"')
+                b-button.fbutton(
+                  type='is-primary  mr-3',
+                  expanded,
+                  @click='checkForm(true)'
+                ) Visionary Assessment
               h3.or or
               nuxt-link(:to='registered ? "/integrator/1" : "/"')
                 b-button.fbutton(
                   type='is-AppGreen  ml-3',
                   expanded,
-                  @click='checkForm'
+                  @click='checkForm(false)'
                 ) Integrator Assessment
 </template>
 
@@ -104,9 +107,11 @@ export default {
     }
   },
   methods: {
-    checkForm() {
+    checkForm(payload) {
       if (!this.registered) {
         this.notRegistered()
+      } else {
+        this.$store.dispatch('visionary/isVisionary', payload)
       }
     },
     notRegistered() {

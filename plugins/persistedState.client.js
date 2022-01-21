@@ -5,7 +5,7 @@ import createPersistedState from 'vuex-persistedstate'
 export default ({store}) => {
   createPersistedState({
     key: 'vuex',
-    paths: ['integrator.allAnswers','visionary.allAnswers','register.user','visionary.integratorIsCompleted','integrator.visionaryIsCompleted'],
+    paths: ['integrator.allAnswers','visionary.allAnswers','visionary.isVisionary','register.user','visionary.integratorIsCompleted','integrator.visionaryIsCompleted'],
     // storage:window.sessionStorage,
     // storage:{
     //         getItem:(key)=>ls.get(key),

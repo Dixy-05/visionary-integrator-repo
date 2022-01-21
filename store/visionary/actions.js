@@ -19,5 +19,8 @@ async fetchResults({commit},payload){
 },
 resetState({commit}){
   return commit('RESET_STATE')
+},
+isVisionary({commit},payload){
+  return commit('IS_VISIONARY',payload)
 }
 } 

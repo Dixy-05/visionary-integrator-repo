@@ -42,7 +42,7 @@ div
                 v-if='current <= chunks.length && current !== 1'
               )
                 b-button.mr-1(
-                  type='is-primary',
+                  :type='visionary ? `is-primary` : `is-base`',
                   :label='current < chunks.length ? `Prev` : ``',
                   icon-left='chevron-left',
                   @click='storeAnswers()'
@@ -62,14 +62,12 @@ div
               b-button(
                 v-if='current == chunks.length',
                 :type='visionary ? `is-primary` : `is-base`',
-                :label='integratorCompleted ? "Get Results" : `${visionary ? `Integrator` : `Visionary`} Assessment`',
+                :label='(visionary ? integratorCompleted : visionaryCompleted) ? "Get Results" : `${visionary ? `Integrator` : `Visionary`} Assessment`',
                 icon-right='chevron-right',
                 @click='handleLastAnswer',
                 :disabled='!isAnswersValid',
                 :loading='buttonLoading'
               )
-        span {{ current }}
-        span {{ chunks.length }}
 </template>
 <script>
 import { mapState } from 'vuex'
@@ -92,7 +90,6 @@ export default {
       answers: [],
       buttonLoading: false,
       isLoading: false,
-      //   visionary: true,
       integrator: false,
     }
   },
@@ -100,7 +97,7 @@ export default {
     try {
       await store.dispatch(
         `${
-          store.state.visionary.visionary ? 'visionary' : 'integrator'
+          store.state.visionary.isVisionary ? 'visionary' : 'integrator'
         }/fetchStatements`,
         {
           statementsPerPage: 4,
@@ -122,17 +119,17 @@ export default {
   },
   computed: {
     ...mapState({
-      visionary: (state) => state.visionary.visionary,
+      visionary: (state) => state.visionary.isVisionary,
       userId: (state) => state.register.user,
       allAnswers: (state) => {
-        return state.visionary.visionary
+        return state.visionary.isVisionary
           ? state.visionary.allAnswers
           : state.integrator.allAnswers
       },
       integratorCompleted: (state) => state.visionary.integratorCompleted,
       visionaryCompleted: (state) => state.integrator.visionaryCompleted,
       chunks: (state) => {
-        return state.visionary.visionary
+        return state.visionary.isVisionary
           ? state.visionary.statementsChunks
           : state.integrator.statementsChunks
       },
@@ -187,14 +184,29 @@ export default {
         answers: this.allAnswers,
         userId: this.userId.data.id,
       })
-      if (response.status === 201) {
+      this.changeRoute(response)
+    },
+    changeRoute(response) {
+      if (this.visionary && response.status === 201) {
+        this.$store.dispatch('visionary/isVisionary', false)
+
         this.integratorCompleted
           ? this.$router.push({
               name: 'result',
             })
           : this.$router.push({
-              name: `${this.visionary ? 'integrator-page' : 'visionary-page'}`,
-              params: { page: '1' },
+              path: '/integrator/1',
+            })
+      }
+      if (!this.visionary && response.status === 201) {
+        this.$store.dispatch('visionary/isVisionary', true)
+
+        this.visionaryCompleted
+          ? this.$router.push({
+              name: 'result',
+            })
+          : this.$router.push({
+              path: '/visionary/1',
             })
       }
     },

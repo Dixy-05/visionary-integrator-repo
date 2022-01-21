@@ -163,12 +163,39 @@
       "text": "I embrace and enjoy the role of ensuring the communication is effectively flowing across the organization."
     }
   ],
-  "user": [
-  ],
-  "integratorScore": [
-  ],
+  "user": [],
+  "integratorScore": [],
   "visionaryScore": [
+    {
+      "answers": [
+        [
+          4,
+          3,
+          3,
+          1
+        ],
+        [
+          2,
+          4,
+          3,
+          3
+        ],
+        [
+          4,
+          3,
+          4,
+          4
+        ],
+        [
+          4,
+          2,
+          2,
+          4
+        ]
+      ],
+      "userId": 9,
+      "id": 1
+    }
   ],
-  "result": [
- ]
+  "result": []
 }

@@ -5,8 +5,8 @@ div
       .column
         .columns
           .column.is-two-thirds.is-three-fifths-tablet
-            h1.assessmentTitle(v-if='visionary') VISIONARY INDICATOR ASSESSMENT
-            h1.assessmentTitle(v-if='!visionary') VISIONARY INDICATOR ASSESSMENT
+            h1.assessmentTitle(v-if='visionary', style='color: #712a96') VISIONARY INDICATOR ASSESSMENT
+            h1.assessmentTitle(v-if='!visionary', style='color: #019884') INTEGRATOR INDICATOR ASSESSMENT
           .column.is-flex.is-align-items-center.is-justify-content-end
             b-tag(type='is-info', size='is-medium') #1 rarely describes you and #5 describes you
         .columns.is-multiline
@@ -26,8 +26,8 @@ div
               b-steps(
                 size='is-medium',
                 :has-navigation='false',
-                v-model='stepPage'
-                :type='visionary? `is-primary`:`is-success`'
+                v-model='stepPage',
+                :type='visionary ? `is-primary` : `is-success`'
               )
                 b-step-item(
                   v-for='(step, index) in chunks',
@@ -38,7 +38,7 @@ div
           .column.is-flex.is-justify-content-end
             div
               nuxt-link(
-                :to='`/${visionary?'visionary':'integrator'}/${current - 1}`',
+                :to='`/${visionary ? `visionary` : `integrator`}/${current - 1}`',
                 v-if='current <= chunks.length && current !== 1'
               )
                 b-button.mr-1(
@@ -48,11 +48,11 @@ div
                   @click='storeAnswers()'
                 )
               nuxt-link(
-                :to='isAnswersValid ? `/${visionary?'visionary':'integrator'}/${current + 1}` : ``',
+                :to='isAnswersValid ? `/${visionary ? `visionary` : `integrator`}/${current + 1}` : ``',
                 v-if='current < chunks.length'
               )
                 b-button(
-                  :type='visionary?`is-primary`:`is-base`',
+                  :type='visionary ? `is-primary` : `is-base`',
                   label='Next',
                   icon-right='chevron-right',
                   @click='storeAnswers()',
@@ -61,13 +61,15 @@ div
             div
               b-button(
                 v-if='current == chunks.length',
-                :type='visionary?`is-primary`:`is-base`',
-                :label='integratorCompleted ? "Get Results" : `${visionary?'Integrator':'Visionary'} Assessment`',
+                :type='visionary ? `is-primary` : `is-base`',
+                :label='integratorCompleted ? "Get Results" : `${visionary ? `Integrator` : `Visionary`} Assessment`',
                 icon-right='chevron-right',
                 @click='handleLastAnswer',
                 :disabled='!isAnswersValid',
                 :loading='buttonLoading'
               )
+        span {{ current }}
+        span {{ chunks.length }}
 </template>
 <script>
 import { mapState } from 'vuex'
@@ -90,14 +92,16 @@ export default {
       answers: [],
       buttonLoading: false,
       isLoading: false,
-      visionary: true,
+      //   visionary: true,
       integrator: false,
     }
   },
   async fetch({ store, error, route }) {
     try {
       await store.dispatch(
-        `${visionary ? 'visionary' : 'integrator'}/fetchStatements`,
+        `${
+          store.state.visionary.visionary ? 'visionary' : 'integrator'
+        }/fetchStatements`,
         {
           statementsPerPage: 4,
         }
@@ -110,6 +114,7 @@ export default {
     }
   },
   created() {
+    console.log(this.$route.params.page)
     const clone = cloneDeep(this.allAnswers[this.current - 1])
     if (clone) {
       this.answers = clone
@@ -117,14 +122,20 @@ export default {
   },
   computed: {
     ...mapState({
+      visionary: (state) => state.visionary.visionary,
       userId: (state) => state.register.user,
-      allAnswers: (state) =>
-        state[this.visionary ? 'visionary' : 'integrator'].allAnswers,
-      integratorCompleted: (state) =>
-        state[this.visionary ? 'visionary' : 'integrator']
-          .integratorIsCompleted, // finding out if integrator assessment is completed
-      chunks: (state) =>
-        state[this.visionary ? 'visionary' : 'integrator'].statementsChunks,
+      allAnswers: (state) => {
+        return state.visionary.visionary
+          ? state.visionary.allAnswers
+          : state.integrator.allAnswers
+      },
+      integratorCompleted: (state) => state.visionary.integratorCompleted,
+      visionaryCompleted: (state) => state.integrator.visionaryCompleted,
+      chunks: (state) => {
+        return state.visionary.visionary
+          ? state.visionary.statementsChunks
+          : state.integrator.statementsChunks
+      },
     }),
     current() {
       return +this.$route.params.page || 1
@@ -142,7 +153,7 @@ export default {
   methods: {
     storeAnswers() {
       this.$store.dispatch(
-        `${this.visionary ? 'visionary' : 'integrator'}visionary/sendAnswers`,
+        `${this.visionary ? 'visionary' : 'integrator'}/sendAnswers`,
         {
           index: this.current - 1,
           answers: this.answers,
@@ -159,7 +170,7 @@ export default {
         )
       // send last answers
       this.$store.dispatch(
-        `${this.visionary ? 'visionary' : 'integrator'}visionary/sendAnswers`,
+        `${this.visionary ? 'visionary' : 'integrator'}/sendAnswers`,
         {
           index: this.current - 1,
           answers: this.answers,
@@ -193,10 +204,9 @@ export default {
 <style  scoped>
 .topDiv {
   height: 1rem;
-  background: hsl(172, 99%, 30%);
+  background: #019884;
 }
 .assessmentTitle {
-  color: #712a96;
   font-size: 2em;
   font-weight: bold;
 }

@@ -4,4 +4,5 @@ export default () => ({
    integratorIsCompleted:false,
    allAnswers:[],
    results:[],
+   visionary:true
   })

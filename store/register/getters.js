@@ -1,5 +1,5 @@
 export default {
-    userId:state=> {
-        return state?.user?.data?.id|| 0
-    }
+  userId: (state) => {
+    return state?.user?.data?.id || 0
+  },
 }

@@ -47,11 +47,14 @@
             .content
               p {{ integratorDefinition }}
 .container(v-else='isLoading')
-  .is-loading
-    span Loading....
+  .is-Loading 
+    b-notification.mt-4(:closable='false')
+      b-loading(:is-full-page='true', v-model='isLoading')
+    //- span Loading....
 </template>
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+// import { mapState } from 'vuex'
 import Post from '@/server/api.js'
 
 export default {
@@ -67,42 +70,33 @@ export default {
         'An Integrator is a person who has the unique ability to harmoniously integrate the major functions of the business, run the organization, and manage the day to day issues that arise. The integrator is the glue that holds the people, processes, systems, priorities and strategy of the company together. "Integrator" is the best word to describe titles such as president, COO, general manager, or chief of staff.',
     }
   },
-
-  // async fetch({ store, error }) {
-  //   console.log('result:', store.state.register)
-  //   const userId = await store.state.register.user.data.id
-  //   // const userId = 5
-  //   try {
-  //     await store.dispatch('integrator/fetchResults', userId)
-  //     await store.dispatch('visionary/fetchResults', userId)
-  //   } catch (e) {
-  //     error({
-  //       statusCode: 503,
-  //       message: 'Unable to fetch results at this time. Please try again.',
-  //     })
-  //   }
-  // },
   beforeMount() {
     this.fetchResults()
   },
   computed: {
-    ...mapState({
-      visionaryResults: (state) => state.visionary.results.data[0].answers,
-      integratorResults: (state) => state.integrator.results.data[0].answers,
+    ...mapGetters({
+      userId: 'register/userId',
+      visionaryResults: 'visionary/results',
+      integratorResults: 'integrator/results',
     }),
-    ...mapGetters({ userId: 'register/userId' }),
   },
-  watch: {
-    userId() {
-      this.fetchResults()
-    },
-  },
+  // watch: {
+  //   userId(value) {
+  //     this.fetchResults()
+  //   },
+  // },
   methods: {
+    ...mapActions({
+      fetchIntegratorResults: 'integrator/fetchResults',
+      fetchVisionaryResults: 'visionary/fetchResults',
+    }),
     async fetchResults() {
       // check for computed userId getter, if true, then run fetch & set isLoading = false
       if (this.userId) {
-        await this.$store.dispatch('integrator/fetchResults', this.userId)
-        await this.$store.dispatch('visionary/fetchResults', this.userId)
+        await this.fetchIntegratorResults(this.userId)
+        await this.fetchVisionaryResults(this.userId)
+        // await this.$store.dispatch('integrator/fetchResults', this.userId)
+        // await this.$store.dispatch('visionary/fetchResults', this.userId)
         this.calculate()
         this.sendResults()
         this.isLoading = false

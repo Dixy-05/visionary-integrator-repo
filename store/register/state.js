@@ -1,4 +1,4 @@
 // register state
 export default () => ({
-    user:{},
-   })
+  user: {},
+})

@@ -187,6 +187,24 @@
       "lastName": "ef",
       "email": "ef@e.oc",
       "id": 4
+    },
+    {
+      "firstName": "inte",
+      "lastName": "grator",
+      "email": "inte@gm.com",
+      "id": 5
+    },
+    {
+      "firstName": "another",
+      "lastName": "try",
+      "email": "another@gm.com",
+      "id": 6
+    },
+    {
+      "firstName": "do ",
+      "lastName": "it",
+      "email": "do@g.omc",
+      "id": 7
     }
   ],
   "integratorScore": [
@@ -297,6 +315,114 @@
       ],
       "userId": 4,
       "id": 3
+    },
+    {
+      "answers": [
+        [
+          4,
+          3,
+          5,
+          3
+        ],
+        [
+          3,
+          5,
+          4,
+          4
+        ],
+        [
+          4,
+          4,
+          3,
+          4
+        ],
+        [
+          4,
+          5,
+          4,
+          4
+        ],
+        [
+          3,
+          3,
+          4,
+          4
+        ]
+      ],
+      "userId": 5,
+      "id": 4
+    },
+    {
+      "answers": [
+        [
+          3,
+          1,
+          3,
+          2
+        ],
+        [
+          5,
+          4,
+          2,
+          5
+        ],
+        [
+          4,
+          3,
+          5,
+          4
+        ],
+        [
+          4,
+          3,
+          4,
+          5
+        ],
+        [
+          4,
+          3,
+          4,
+          3
+        ]
+      ],
+      "userId": 6,
+      "id": 5
+    },
+    {
+      "answers": [
+        [
+          2,
+          4,
+          4,
+          3
+        ],
+        [
+          2,
+          3,
+          5,
+          5
+        ],
+        [
+          2,
+          4,
+          3,
+          4
+        ],
+        [
+          5,
+          5,
+          5,
+          5
+        ],
+        [
+          4,
+          2,
+          5,
+          4
+        ]
+      ],
+      "userId": 7,
+      "id": 6
     }
   ],
   "visionaryScore": [
@@ -407,6 +533,114 @@
       ],
       "userId": 4,
       "id": 3
+    },
+    {
+      "answers": [
+        [
+          2,
+          1,
+          2,
+          2
+        ],
+        [
+          4,
+          2,
+          4,
+          3
+        ],
+        [
+          1,
+          4,
+          3,
+          5
+        ],
+        [
+          2,
+          4,
+          1,
+          4
+        ],
+        [
+          4,
+          3,
+          5,
+          3
+        ]
+      ],
+      "userId": 5,
+      "id": 4
+    },
+    {
+      "answers": [
+        [
+          4,
+          4,
+          5,
+          3
+        ],
+        [
+          4,
+          2,
+          4,
+          4
+        ],
+        [
+          4,
+          3,
+          4,
+          4
+        ],
+        [
+          5,
+          3,
+          5,
+          4
+        ],
+        [
+          3,
+          5,
+          5,
+          5
+        ]
+      ],
+      "userId": 6,
+      "id": 5
+    },
+    {
+      "answers": [
+        [
+          3,
+          3,
+          3,
+          2
+        ],
+        [
+          4,
+          3,
+          4,
+          4
+        ],
+        [
+          2,
+          4,
+          4,
+          5
+        ],
+        [
+          3,
+          3,
+          4,
+          4
+        ],
+        [
+          4,
+          5,
+          5,
+          4
+        ]
+      ],
+      "userId": 7,
+      "id": 6
     }
   ],
   "result": [
@@ -439,6 +673,204 @@
       "integrator": 65,
       "userId": 4,
       "id": 5
+    },
+    {
+      "visionary": 59,
+      "integrator": 77,
+      "userId": 5,
+      "id": 6
+    },
+    {
+      "visionary": 59,
+      "integrator": 77,
+      "userId": 5,
+      "id": 7
+    },
+    {
+      "visionary": 59,
+      "integrator": 77,
+      "userId": 5,
+      "id": 8
+    },
+    {
+      "visionary": 59,
+      "integrator": 77,
+      "userId": 5,
+      "id": 9
+    },
+    {
+      "visionary": 59,
+      "integrator": 77,
+      "userId": 5,
+      "id": 10
+    },
+    {
+      "visionary": 59,
+      "integrator": 77,
+      "userId": 5,
+      "id": 11
+    },
+    {
+      "visionary": 59,
+      "integrator": 77,
+      "userId": 5,
+      "id": 12
+    },
+    {
+      "visionary": 59,
+      "integrator": 77,
+      "userId": 5,
+      "id": 13
+    },
+    {
+      "visionary": 59,
+      "integrator": 77,
+      "userId": 5,
+      "id": 14
+    },
+    {
+      "visionary": 59,
+      "integrator": 77,
+      "userId": 5,
+      "id": 15
+    },
+    {
+      "visionary": 59,
+      "integrator": 77,
+      "userId": 5,
+      "id": 16
+    },
+    {
+      "visionary": 59,
+      "integrator": 77,
+      "userId": 5,
+      "id": 17
+    },
+    {
+      "visionary": 59,
+      "integrator": 77,
+      "userId": 5,
+      "id": 18
+    },
+    {
+      "visionary": 59,
+      "integrator": 77,
+      "userId": 5,
+      "id": 19
+    },
+    {
+      "visionary": 59,
+      "integrator": 77,
+      "userId": 5,
+      "id": 20
+    },
+    {
+      "visionary": 59,
+      "integrator": 77,
+      "userId": 5,
+      "id": 21
+    },
+    {
+      "visionary": 59,
+      "integrator": 77,
+      "userId": 5,
+      "id": 22
+    },
+    {
+      "visionary": 59,
+      "integrator": 77,
+      "userId": 5,
+      "id": 23
+    },
+    {
+      "visionary": 80,
+      "integrator": 71,
+      "userId": 6,
+      "id": 24
+    },
+    {
+      "visionary": 80,
+      "integrator": 71,
+      "userId": 6,
+      "id": 25
+    },
+    {
+      "visionary": 73,
+      "integrator": 76,
+      "userId": 7,
+      "id": 26
+    },
+    {
+      "visionary": 73,
+      "integrator": 76,
+      "userId": 7,
+      "id": 27
+    },
+    {
+      "visionary": 73,
+      "integrator": 76,
+      "userId": 7,
+      "id": 28
+    },
+    {
+      "visionary": 73,
+      "integrator": 76,
+      "userId": 7,
+      "id": 29
+    },
+    {
+      "visionary": 73,
+      "integrator": 76,
+      "userId": 7,
+      "id": 30
+    },
+    {
+      "visionary": 73,
+      "integrator": 76,
+      "userId": 7,
+      "id": 31
+    },
+    {
+      "visionary": 73,
+      "integrator": 76,
+      "userId": 7,
+      "id": 32
+    },
+    {
+      "visionary": 73,
+      "integrator": 76,
+      "userId": 7,
+      "id": 33
+    },
+    {
+      "visionary": 73,
+      "integrator": 76,
+      "userId": 7,
+      "id": 34
+    },
+    {
+      "visionary": 73,
+      "integrator": 76,
+      "userId": 7,
+      "id": 35
+    },
+    {
+      "visionary": 73,
+      "integrator": 76,
+      "userId": 7,
+      "id": 36
+    },
+    {
+      "visionary": 73,
+      "integrator": 76,
+      "userId": 7,
+      "id": 37
+    },
+    {
+      "visionary": 73,
+      "integrator": 76,
+      "userId": 7,
+      "id": 38
     }
   ]
 }

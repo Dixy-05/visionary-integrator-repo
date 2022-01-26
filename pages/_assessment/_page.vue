@@ -70,7 +70,7 @@ div
               )
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import { filter, cloneDeep } from 'lodash'
 import Post from '@/server/api.js'
 import Card from '@/components/Card.vue'
@@ -148,31 +148,46 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      iIsComplete: 'visionary/integratorIsComplete',
+      vIsComplete: 'integrator/visionaryIsComplete',
+      vSendAnswer: 'visionary/sendAnswers',
+      iSendAnswer: 'integrator/sendAnswers',
+      isVisionary: 'visionary/isVisionary',
+    }),
     storeAnswers() {
-      this.$store.dispatch(
-        `${this.visionary ? 'visionary' : 'integrator'}/sendAnswers`,
-        {
-          index: this.current - 1,
-          answers: this.answers,
-        }
-      )
+      const payload = { index: this.current - 1, answers: this.answers }
+      this.visionary ? this.vSendAnswer(payload) : this.iSendAnswer(payload)
+      // this.$store.dispatch(
+      //   `${this.visionary ? 'visionary' : 'integrator'}/sendAnswers`,
+      //   {
+      //     index: this.current - 1,
+      //     answers: this.answers,
+      //   }
+      // )
       this.isLoading = true
     },
 
     handleLastAnswer() {
       this.current === this.chunks.length && // sending completion to integrator state
-        this.$store.dispatch(
-          `${this.visionary ? 'integrator' : 'visionary'}/visionaryIsCompleted`,
-          true
-        )
+      this.visionary
+        ? this.vIsComplete(true)
+        : this.iIsComplete(true)
+      //  this.$store.dispatch(
+      //     `${this.visionary ? 'integrator' : 'visionary'}/visionaryIsCompleted`,
+      //     true
+      //   )
       // send last answers
-      this.$store.dispatch(
-        `${this.visionary ? 'visionary' : 'integrator'}/sendAnswers`,
-        {
-          index: this.current - 1,
-          answers: this.answers,
-        }
-      )
+      const payload = { index: this.current - 1, answers: this.answers }
+      this.visionary ? this.vSendAnswer(payload) : this.iSendAnswer(payload)
+
+      // this.$store.dispatch(
+      //   `${this.visionary ? 'visionary' : 'integrator'}/sendAnswers`,
+      //   {
+      //     index: this.current - 1,
+      //     answers: this.answers,
+      //   }
+      // )
       this.sendToDataBase()
     },
     async sendToDataBase() {
@@ -188,7 +203,8 @@ export default {
     },
     changeRoute(response) {
       if (this.visionary && response.status === 201) {
-        this.$store.dispatch('visionary/isVisionary', false)
+        this.isVisionary(false)
+        // this.$store.dispatch('visionary/isVisionary', false)
 
         this.integratorCompleted
           ? this.$router.push({
@@ -199,7 +215,8 @@ export default {
             })
       }
       if (!this.visionary && response.status === 201) {
-        this.$store.dispatch('visionary/isVisionary', true)
+        this.isVisionary(true)
+        // this.$store.dispatch('visionary/isVisionary', true)
 
         this.visionaryCompleted
           ? this.$router.push({

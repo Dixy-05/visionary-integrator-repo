@@ -3,13 +3,16 @@ export default {
   results: (state) => {
     return state.results.data[0].answers
   },
+  integratorIsCompleted: (state) => {
+    return state.integratorIsCompleted
+  },
   statementsChunks: (state) => {
     return state.statementsChunks
   },
-  integratorIsComplete: (state) => {
-    return state.integratorIsComplete
-  },
   allAnswers: (state) => {
     return state.allAnswers
+  },
+  isVisionary: (state) => {
+    return state.isVisionary
   },
 }

@@ -87,8 +87,8 @@ export default {
   // },
   methods: {
     ...mapActions({
-      fetchIntegratorResults: 'integrator/fetchResults',
-      fetchVisionaryResults: 'visionary/fetchResults',
+      fetchIntegratorResults: 'ivStore/iFetchResults',
+      fetchVisionaryResults: 'ivStore/vFetchResults',
     }),
     async fetchResults() {
       // check for computed userId getter, if true, then run fetch & set isLoading = false

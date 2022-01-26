@@ -62,15 +62,17 @@ div
               b-button(
                 v-if='current == chunks.length',
                 :type='visionary ? `is-primary` : `is-base`',
-                :label='(visionary ? integratorCompleted : visionaryCompleted) ? "Get Results" : `${visionary ? `Integrator` : `Visionary`} Assessment`',
+                :label='visionary ? (integratorCompleted ? `Get Results` : `Integrator Assessment`) : visionaryCompleted ? `Get Results` : `Visionary Assessment`',
                 icon-right='chevron-right',
                 @click='handleLastAnswer',
                 :disabled='!isAnswersValid',
                 :loading='buttonLoading'
               )
+      span visionary {{ visionary }}
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+// import { mapState } from 'vuex'
 import { filter, cloneDeep } from 'lodash'
 import Post from '@/server/api.js'
 import Card from '@/components/Card.vue'
@@ -95,14 +97,10 @@ export default {
   },
   async fetch({ store, error, route }) {
     try {
-      await store.dispatch(
-        `${
-          store.state.visionary.isVisionary ? 'visionary' : 'integrator'
-        }/fetchStatements`,
-        {
-          statementsPerPage: 4,
-        }
-      )
+      const payload = { statementsPerPage: 4 }
+      this.visionary
+        ? await this.vFetchStatements(payload)
+        : await this.iFetchStatements(payload)
     } catch (e) {
       error({
         statusCode: 503,
@@ -118,22 +116,30 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      visionary: (state) => state.visionary.isVisionary,
-      userId: (state) => state.register.user,
-      allAnswers: (state) => {
-        return state.visionary.isVisionary
-          ? state.visionary.allAnswers
-          : state.integrator.allAnswers
-      },
-      integratorCompleted: (state) => state.visionary.integratorCompleted,
-      visionaryCompleted: (state) => state.integrator.visionaryCompleted,
-      chunks: (state) => {
-        return state.visionary.isVisionary
-          ? state.visionary.statementsChunks
-          : state.integrator.statementsChunks
-      },
+    ...mapGetters({
+      visionary: 'ivStore/isVisionary',
+      userId: 'register/userId',
+      allAnswers: 'ivStore/allAnswers',
+      integratorCompleted: 'ivStore/integratorIsCompleted',
+      visionaryCompleted: 'ivStore/visionaryIsCompleted',
+      chunks: `ivStore/statementsChunks`,
     }),
+    // ...mapState({
+    //   visionary: (state) => state.visionary.isVisionary,
+    //   userId: (state) => state.register.user,
+    //   allAnswers: (state) => {
+    //     return state.visionary.isVisionary
+    //       ? state.visionary.allAnswers
+    //       : state.integrator.allAnswers
+    //   },
+    //   integratorCompleted: (state) => state.visionary.integratorIsCompleted,
+    //   visionaryCompleted: (state) => state.integrator.visionaryIsCompleted,
+    //   chunks: (state) => {
+    //     return state.visionary.isVisionary
+    //       ? state.visionary.statementsChunks
+    //       : state.integrator.statementsChunks
+    //   },
+    // }),
     current() {
       return +this.$route.params.page || 1
     },
@@ -149,45 +155,28 @@ export default {
   },
   methods: {
     ...mapActions({
-      iIsComplete: 'visionary/integratorIsComplete',
-      vIsComplete: 'integrator/visionaryIsComplete',
-      vSendAnswer: 'visionary/sendAnswers',
-      iSendAnswer: 'integrator/sendAnswers',
-      isVisionary: 'visionary/isVisionary',
+      iFetchStatements: 'ivStore/iFetchStatements',
+      vFetchStatements: 'ivStore/vFetchStatements',
+      iIsCompleted: 'ivStore/integratorIsCompleted',
+      vIsCompleted: 'ivStore/visionaryIsCompleted',
+      SendAnswer: 'ivStore/sendAnswers',
+      isVisionary: 'ivStore/isVisionary',
     }),
     storeAnswers() {
       const payload = { index: this.current - 1, answers: this.answers }
-      this.visionary ? this.vSendAnswer(payload) : this.iSendAnswer(payload)
-      // this.$store.dispatch(
-      //   `${this.visionary ? 'visionary' : 'integrator'}/sendAnswers`,
-      //   {
-      //     index: this.current - 1,
-      //     answers: this.answers,
-      //   }
-      // )
+      this.SendAnswer(payload)
       this.isLoading = true
     },
 
     handleLastAnswer() {
       this.current === this.chunks.length && // sending completion to integrator state
       this.visionary
-        ? this.vIsComplete(true)
-        : this.iIsComplete(true)
-      //  this.$store.dispatch(
-      //     `${this.visionary ? 'integrator' : 'visionary'}/visionaryIsCompleted`,
-      //     true
-      //   )
+        ? this.vIsCompleted(true)
+        : this.iIsCompleted(true)
       // send last answers
       const payload = { index: this.current - 1, answers: this.answers }
-      this.visionary ? this.vSendAnswer(payload) : this.iSendAnswer(payload)
+      this.SendAnswer(payload)
 
-      // this.$store.dispatch(
-      //   `${this.visionary ? 'visionary' : 'integrator'}/sendAnswers`,
-      //   {
-      //     index: this.current - 1,
-      //     answers: this.answers,
-      //   }
-      // )
       this.sendToDataBase()
     },
     async sendToDataBase() {
@@ -197,27 +186,22 @@ export default {
         this.visionary ? 'sendToVisionary' : 'sendToIntegrator'
       ]({
         answers: this.allAnswers,
-        userId: this.userId.data.id,
+        userId: this.userId,
       })
-      this.changeRoute(response)
-    },
-    changeRoute(response) {
-      if (this.visionary && response.status === 201) {
-        this.isVisionary(false)
-        // this.$store.dispatch('visionary/isVisionary', false)
 
+      response.status === 201 && this.changeRoute()
+    },
+    changeRoute() {
+      if (this.visionary) {
         this.integratorCompleted
           ? this.$router.push({
               name: 'result',
             })
           : this.$router.push({
-              path: '/integrator/1',
+              path: `/integrator/1`,
             })
-      }
-      if (!this.visionary && response.status === 201) {
-        this.isVisionary(true)
-        // this.$store.dispatch('visionary/isVisionary', true)
-
+        this.isVisionary(false)
+      } else if (!this.visionary) {
         this.visionaryCompleted
           ? this.$router.push({
               name: 'result',
@@ -225,6 +209,7 @@ export default {
           : this.$router.push({
               path: '/visionary/1',
             })
+        this.isVisionary(true)
       }
     },
   },

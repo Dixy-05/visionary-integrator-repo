@@ -97,8 +97,10 @@ export default {
   },
   async fetch({ store, error, route }) {
     try {
+      console.log(store.state.ivStore.isVisionary)
+      console.log('this thing is not working')
       const payload = { statementsPerPage: 4 }
-      this.visionary
+      store.state.ivStore.isVisionary
         ? await this.vFetchStatements(payload)
         : await this.iFetchStatements(payload)
     } catch (e) {

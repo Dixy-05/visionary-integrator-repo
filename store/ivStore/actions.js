@@ -1,10 +1,13 @@
-import Fetch from '@/server/api.js'
+// ivStore
 import { chunk } from 'lodash'
+import Fetch from '@/server/api.js'
 
 export default {
   async vFetchStatements({ commit }, payload) {
+    console.log('from actions')
     const response = await Fetch.getVisionaryStatements()
     const chunks = chunk(response.data, payload.statementsPerPage)
+    console.log('chunks:', chunks)
     return commit('SET_STATEMENTS_CHUNKS', { response: chunks, loading: false })
   },
   async iFetchStatements({ commit }, payload) {

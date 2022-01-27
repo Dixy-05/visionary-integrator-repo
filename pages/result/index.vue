@@ -95,8 +95,6 @@ export default {
       if (this.userId) {
         await this.fetchIntegratorResults(this.userId)
         await this.fetchVisionaryResults(this.userId)
-        // await this.$store.dispatch('integrator/fetchResults', this.userId)
-        // await this.$store.dispatch('visionary/fetchResults', this.userId)
         this.calculate()
         this.sendResults()
         this.isLoading = false
@@ -120,7 +118,6 @@ export default {
       this.visionaryTotal = visionaryTotal.reduce((total, num) => total + num)
       this.integratorTotal = integratorTotal.reduce((total, num) => total + num)
     },
-    // ..........map actions.....
     sendResults() {
       return Post.sendToResult({
         visionary: this.visionaryTotal,

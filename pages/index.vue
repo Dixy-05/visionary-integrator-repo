@@ -9,7 +9,7 @@
           section.registered(v-if='!showForm')
             .tile.tile.is-parent
               article.tile.is-child.notification.is-info
-                p.title Success, now Lets start !!
+                p.title Success, now let's start !!
                 p.subtitle 
                   b-icon(icon='hand-pointing-right')
                   | You can choose either assessment to begin
@@ -78,14 +78,14 @@
             article.tile.is-child.notification.is-dark.is-light
               p.title It will only take you a few minutes !!
               nuxt-link(:to='registered ? "/visionary/1" : "/"')
-                b-button.fbutton(
+                b-button.fButton(
                   type='is-primary  mr-3',
                   expanded,
                   @click='checkForm(true)'
                 ) Visionary Assessment
               h3.or or
               nuxt-link(:to='registered ? "/integrator/1" : "/"')
-                b-button.fbutton(
+                b-button.fButton(
                   type='is-AppGreen  ml-3',
                   expanded,
                   @click='checkForm(false)'
@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'IndexPage',
@@ -107,11 +107,18 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      ivResetState: 'ivStore/resetState',
+      isVisionary: 'ivStore/isVisionary',
+      registerReset: 'register/resetState',
+      registerUser: 'register/registerUser',
+    }),
     checkForm(payload) {
       if (!this.registered) {
         this.notRegistered()
       } else {
-        this.$store.dispatch('visionary/isVisionary', payload)
+        this.isVisionary(payload)
+        // this.$store.dispatch('visionary/isVisionary', payload)
       }
     },
     notRegistered() {
@@ -120,11 +127,10 @@ export default {
           'Please Fill out Register Form and Register, to start assessment',
         type: 'is-danger',
         duration: 5000,
-        // position: 'is-bottom',
       })
     },
     register() {
-      this.$store.dispatch('register/registerUser', {
+      this.registerUser({
         firstName: this.firstName,
         lastName: this.lastName,
         email: this.email,
@@ -134,18 +140,14 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('register/resetState')
-    this.$store.dispatch('visionary/resetState')
-    this.$store.dispatch('integrator/resetState')
+    this.ivResetState()
+    this.registerReset()
     localStorage.removeItem('vuex')
   },
-  computed: mapState({
-    user: (state) => state.register.user,
-  }),
 }
 </script>
 <style  scoped>
-.fbutton {
+.fButton {
   font-size: 1.5em;
 }
 .or {

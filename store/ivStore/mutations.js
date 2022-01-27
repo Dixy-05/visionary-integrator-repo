@@ -17,6 +17,8 @@ export default {
   },
   RESET_STATE(state) {
     state.integratorIsCompleted = false
+    state.visionaryIsCompleted = false
+    state.isVisionary = false
     state.allAnswers = []
   },
   IS_VISIONARY(state, payload) {

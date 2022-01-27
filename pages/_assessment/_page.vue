@@ -97,12 +97,10 @@ export default {
   },
   async fetch({ store, error, route }) {
     try {
-      console.log(store.state.ivStore.isVisionary)
-      console.log('this thing is not working')
       const payload = { statementsPerPage: 4 }
       store.state.ivStore.isVisionary
-        ? await this.vFetchStatements(payload)
-        : await this.iFetchStatements(payload)
+        ? await store.dispatch('ivStore/vFetchStatements', payload)
+        : await store.dispatch('ivStore/iFetchStatements', payload)
     } catch (e) {
       error({
         statusCode: 503,
@@ -126,22 +124,6 @@ export default {
       visionaryCompleted: 'ivStore/visionaryIsCompleted',
       chunks: `ivStore/statementsChunks`,
     }),
-    // ...mapState({
-    //   visionary: (state) => state.visionary.isVisionary,
-    //   userId: (state) => state.register.user,
-    //   allAnswers: (state) => {
-    //     return state.visionary.isVisionary
-    //       ? state.visionary.allAnswers
-    //       : state.integrator.allAnswers
-    //   },
-    //   integratorCompleted: (state) => state.visionary.integratorIsCompleted,
-    //   visionaryCompleted: (state) => state.integrator.visionaryIsCompleted,
-    //   chunks: (state) => {
-    //     return state.visionary.isVisionary
-    //       ? state.visionary.statementsChunks
-    //       : state.integrator.statementsChunks
-    //   },
-    // }),
     current() {
       return +this.$route.params.page || 1
     },
@@ -163,6 +145,7 @@ export default {
       vIsCompleted: 'ivStore/visionaryIsCompleted',
       SendAnswer: 'ivStore/sendAnswers',
       isVisionary: 'ivStore/isVisionary',
+      resetAllAnswers: 'ivStore/resetAllAnswers',
     }),
     storeAnswers() {
       const payload = { index: this.current - 1, answers: this.answers }
@@ -190,8 +173,10 @@ export default {
         answers: this.allAnswers,
         userId: this.userId,
       })
-
-      response.status === 201 && this.changeRoute()
+      if (response.status === 201) {
+        this.resetAllAnswers()
+        this.changeRoute()
+      }
     },
     changeRoute() {
       if (this.visionary) {

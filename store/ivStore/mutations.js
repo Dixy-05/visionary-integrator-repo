@@ -7,13 +7,16 @@ export default {
     state.integratorIsCompleted = payload
   },
   SET_VISIONARY_IS_COMPLETED(state, payload) {
-    state.integratorIsCompleted = payload
+    state.visionaryIsCompleted = payload
   },
   SET_ANSWERS(state, payload) {
     state.allAnswers[payload.index] = payload.answers
   },
-  SET_RESULTS(state, payload) {
-    state.results = payload
+  SET_VISIONARY_RESULTS(state, payload) {
+    state.vResults = payload
+  },
+  SET_INTEGRATOR_RESULTS(state, payload) {
+    state.iResults = payload
   },
   RESET_STATE(state) {
     state.integratorIsCompleted = false
@@ -23,5 +26,8 @@ export default {
   },
   IS_VISIONARY(state, payload) {
     state.isVisionary = payload
+  },
+  RESET_ALL_ANSWERS(state) {
+    state.allAnswers = []
   },
 }

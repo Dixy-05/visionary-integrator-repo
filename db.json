@@ -165,76 +165,10 @@
   ],
   "user": [
     {
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john@gmail.com",
+      "firstName": "hello",
+      "lastName": "how",
+      "email": "are@you.com",
       "id": 1
-    },
-    {
-      "firstName": "d",
-      "lastName": "e",
-      "email": "e@g.com",
-      "id": 2
-    },
-    {
-      "firstName": "ef",
-      "lastName": "ef",
-      "email": "fe@g.com",
-      "id": 3
-    },
-    {
-      "firstName": "ef",
-      "lastName": "ef",
-      "email": "ef@g.com",
-      "id": 4
-    },
-    {
-      "firstName": "r",
-      "lastName": "g",
-      "email": "r@b.com",
-      "id": 5
-    },
-    {
-      "firstName": "ef",
-      "lastName": "ef",
-      "email": "e@g.com",
-      "id": 6
-    },
-    {
-      "firstName": "ef",
-      "lastName": "ef",
-      "email": "ef@c.om",
-      "id": 7
-    },
-    {
-      "firstName": "d",
-      "lastName": "d",
-      "email": "d@c.om",
-      "id": 8
-    },
-    {
-      "firstName": "ef",
-      "lastName": "ef",
-      "email": "ef@b.omc",
-      "id": 9
-    },
-    {
-      "firstName": "eh",
-      "lastName": "ef",
-      "email": "ef@g.com",
-      "id": 10
-    },
-    {
-      "firstName": "e",
-      "lastName": "fe",
-      "email": "ef@g.com",
-      "id": 11
-    },
-    {
-      "firstName": "d",
-      "lastName": "d",
-      "email": "d@gf.com",
-      "id": 12
     }
   ],
   "integratorScore": [],

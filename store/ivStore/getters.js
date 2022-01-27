@@ -1,7 +1,10 @@
 export default {
   // ivStore
-  results: (state) => {
-    return state.results.data[0].answers
+  vResults: (state) => {
+    return state.vResults.data[0].answers
+  },
+  iResults: (state) => {
+    return state.iResults.data[0].answers
   },
   integratorIsCompleted: (state) => {
     return state.integratorIsCompleted

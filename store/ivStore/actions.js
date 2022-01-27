@@ -26,16 +26,19 @@ export default {
   },
   async vFetchResults({ commit }, payload) {
     const response = await Fetch.getVisionaryResults(payload)
-    return commit('SET_RESULTS', response)
+    return commit('SET_VISIONARY_RESULTS', response)
   },
   async iFetchResults({ commit }, payload) {
     const response = await Fetch.getIntegratorResults(payload)
-    return commit('SET_RESULTS', response)
+    return commit('SET_INTEGRATOR_RESULTS', response)
   },
   resetState({ commit }) {
     return commit('RESET_STATE')
   },
   isVisionary({ commit }, payload) {
     return commit('IS_VISIONARY', payload)
+  },
+  resetAllAnswers({ commit }) {
+    return commit('RESET_ALL_ANSWERS')
   },
 }

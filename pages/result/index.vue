@@ -76,8 +76,8 @@ export default {
   computed: {
     ...mapGetters({
       userId: 'register/userId',
-      visionaryResults: 'visionary/results',
-      integratorResults: 'integrator/results',
+      visionaryResults: 'ivStore/vResults',
+      integratorResults: 'ivStore/iResults',
     }),
   },
   // watch: {

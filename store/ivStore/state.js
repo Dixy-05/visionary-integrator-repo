@@ -4,6 +4,7 @@ export default () => ({
   integratorIsCompleted: false,
   visionaryIsCompleted: false,
   allAnswers: [],
-  results: [],
+  iResults: [],
+  vResults: [],
   isVisionary: false,
 })

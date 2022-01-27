@@ -12,6 +12,7 @@
                 p.title Success, now let's start !!
                 p.subtitle 
                   b-icon(icon='hand-pointing-right')
+                  |
                   | You can choose either assessment to begin
 
           p(v-if='showForm')
@@ -28,7 +29,7 @@
                   name='First Name',
                   v-slot='{ errors, valid }'
                 )
-                  b-field(
+                  b-field.bField(
                     label='First Name',
                     :label-position='firstName != "" ? "on-border" : "inside"',
                     :type='{ "is-danger": errors[0], "is-success": valid }',
@@ -44,7 +45,7 @@
                   name='Last Name',
                   v-slot='{ errors, valid }'
                 )
-                  b-field(
+                  b-field.bField(
                     label='Last Name',
                     :label-position='lastName != "" ? "on-border" : "inside"',
                     :type='{ "is-danger": errors[0], "is-success": valid }',
@@ -60,7 +61,7 @@
                   name='Last Name',
                   v-slot='{ errors, valid }'
                 )
-                  b-field(
+                  b-field.bField(
                     label='Email',
                     :label-position='email != "" ? "on-border" : "inside"',
                     :type='{ "is-danger": errors[0], "is-success": valid }',
@@ -82,14 +83,16 @@
                   type='is-primary  mr-3',
                   expanded,
                   @click='checkForm(true)'
-                ) Visionary Assessment
+                ) 
+                  span.assessment Visionary Assessment
               h3.or or
               nuxt-link(:to='registered ? "/integrator/1" : "/"')
                 b-button.fButton(
                   type='is-AppGreen  ml-3',
                   expanded,
                   @click='checkForm(false)'
-                ) Integrator Assessment
+                ) 
+                  span.assessment Integrator Assessment
 </template>
 
 <script>
@@ -118,7 +121,6 @@ export default {
         this.notRegistered()
       } else {
         this.isVisionary(payload)
-        // this.$store.dispatch('visionary/isVisionary', payload)
       }
     },
     notRegistered() {
@@ -160,5 +162,11 @@ export default {
 }
 .form {
   width: 90%;
+}
+.assessment {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.bField {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 </style>

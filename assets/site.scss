@@ -1,8 +1,8 @@
 // Import Bulma's core
-@import "~bulma/sass/utilities/_all.sass";
+@import '~bulma/sass/utilities/_all.sass';
 // @import '~bulma-slider/src/sass/index.sass';
 
-$family-sans-serif: 'Proxima Nova', "proxima-nova";
+$family-sans-serif: 'Proxima Nova', 'proxima-nova';
 $family-primary: $family-sans-serif;
 
 // Set your colors
@@ -37,37 +37,77 @@ $base-invert: findColorInvert($base);
 $AppGreen: hsl(172, 99%, 30%);
 $AppGreen-invert: findColorInvert($AppGreen);
 
-$white:white;
+$white: white;
 
 $text: $dark;
 
 $footer-background-color: $light;
 
-$colors: mergeColorMaps($colors, (
-  "base":($base,$base-invert),
-  "AppGreen":($AppGreen,$AppGreen-invert),
-  "white": ($white, $black),
-  "black": ($black, $white),
-  "light": ($light, $light-invert),
-  "dark": ($dark, $dark-invert),
-  "primary": ($primary, $primary-invert),
-  "info": ($info, $info-invert),
-  "link": ($link, $link-invert),
-  "success": ($success, $success-invert),
-  "warning": ($warning, $warning-invert),
-  "danger": ($danger, $danger-invert),
-  "link-dark": ($link-dark, $link-dark-invert),
-  "success-dark": ($success-dark, $success-dark-invert)
-));
+$colors: mergeColorMaps(
+  $colors,
+  (
+    'base': (
+      $base,
+      $base-invert,
+    ),
+    'AppGreen': (
+      $AppGreen,
+      $AppGreen-invert,
+    ),
+    'white': (
+      $white,
+      $black,
+    ),
+    'black': (
+      $black,
+      $white,
+    ),
+    'light': (
+      $light,
+      $light-invert,
+    ),
+    'dark': (
+      $dark,
+      $dark-invert,
+    ),
+    'primary': (
+      $primary,
+      $primary-invert,
+    ),
+    'info': (
+      $info,
+      $info-invert,
+    ),
+    'link': (
+      $link,
+      $link-invert,
+    ),
+    'success': (
+      $success,
+      $success-invert,
+    ),
+    'warning': (
+      $warning,
+      $warning-invert,
+    ),
+    'danger': (
+      $danger,
+      $danger-invert,
+    ),
+    'link-dark': (
+      $link-dark,
+      $link-dark-invert,
+    ),
+    'success-dark': (
+      $success-dark,
+      $success-dark-invert,
+    ),
+  )
+);
 $steps-completed-color: $grey-lighter;
 $weight-bold: 800;
 // Import Bulma and Buefy styles
-@import "~bulma";
-@import "~buefy/src/scss/buefy";
+@import '~bulma';
+@import '~buefy/src/scss/buefy';
 // @import './bulma-override.sass';
 // @import "~bulma-steps-component/bulma-steps.sass";
-.mainTitle{
-  font-family: Cochin, Georgia, Times, 'Times New Roman', serif;
-  color:rgb(127, 40, 209);
-  font-size: 3em;
-}
